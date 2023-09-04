@@ -2,6 +2,12 @@ import mongoose ,{Schema} from "mongoose";
 
 const cartSchema = mongoose.Schema({
 
+    userId:{
+        type: {type: Schema.Types.ObjectId,
+        ref: "user"}
+
+    },
+
     product: {
         type: [{type: Schema.Types.Subdocument,
         ref: "tshirt"}]
