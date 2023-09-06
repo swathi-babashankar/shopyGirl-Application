@@ -31,6 +31,18 @@ exports.addToCart = async(req, res) => {
             throw new Error("User not found")
         }
 
+        const productExist = await Cart.findOne({prodId});
+
+        // if(productExist){
+        //     prompt("This product already exist in cart. Do you want to increase quantity")
+
+            
+        // }
+
+        if(productExist){
+            throw new Error("Product already exist in your cart")
+        }
+
         // Check for token in cookies if present add the product to cart
         if(token === String){
 
@@ -52,4 +64,51 @@ exports.addToCart = async(req, res) => {
             message: err.message
         })
     }
+}
+
+exports.getItems = async(req, res) => {
+    try{
+        const itemsInCart = await Cart.find({});
+
+        res.status(202).json({
+            success: true,
+            message: "Items fetched successfully",
+            itemsInCart
+        })
+    }
+
+    catch(err){
+        res.status(404).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+exports.getByUserId = async(req, res) => {
+
+    try{
+        const {userId} = req.params;
+
+        const userCartItems = await Cart.find({userId});
+
+        if(!userCartItems){
+            throw new Error("Your cart is empty")
+        }
+
+        res.status(202).json({
+            success: true,
+            message: "Your cart items fetched successfully"
+        })
+    }
+
+    catch(err){
+
+        res.status(404).json({
+            success: false,
+            message: err.message
+        })
+    }
 };
+
+
