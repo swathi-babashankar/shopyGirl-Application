@@ -111,4 +111,29 @@ exports.getByUserId = async(req, res) => {
     }
 };
 
+exports.editCart = async(req, res) => {
 
+    try{
+
+        const {prodId} = req.params;
+        const {quantity} = req.body;
+
+        const updatedCart = await Cart.findByIdAndUpdate({prodId}, {quantity})
+
+        res.status(202).json({
+            success: true,
+            message: "Product updated successfully",
+            updatedCart
+        })
+
+    }
+
+    catch(err){
+
+        res.status(404).json({
+            success: false,
+            message: err.message
+        })
+
+    }
+}
