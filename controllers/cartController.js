@@ -47,6 +47,8 @@ exports.addToCart = async(req, res) => {
         if(token === String){
 
             const productAdded = await Cart.create({prodId, qty, prodPrice, userId})
+
+            // Doubt - Push product IDs to user using push()
     
             res.status(202).json({
                success: true,
@@ -133,6 +135,33 @@ exports.editCart = async(req, res) => {
         res.status(404).json({
             success: false,
             message: err.message
+        })
+
+    }
+}
+
+exports.deleteCartItem = async(req, res) => {
+
+    try{
+
+        const {prodId} = req.params;
+
+        const prodDeleted = await Cart.findByIdAndDelete({prodId});
+
+        res.status(202).json({
+            success: true,
+            message: "Cart item deleted successfully",
+            prodDeleted
+        })
+
+    }
+
+    catch(err){
+
+        res.status(404).json({
+            success: false,
+            message: err.message
+
         })
 
     }
