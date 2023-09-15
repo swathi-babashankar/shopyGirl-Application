@@ -110,3 +110,31 @@ exports.editOrderDetails = async (req, res) => {
 }
 // Cancel order
 
+exports.cancelOrder = async (req, res) => {
+
+    try{
+
+        const {orderId} = req.params;
+        if(!orderId){
+            throw new Error("Please pass the orderID")
+        }
+
+        const orderCancel = await Order.findByIdAndDelete({orderId});
+
+        res.status(202).json({
+            success: true,
+            message: "Order cancelled successfully",
+            orderCancel
+        })
+
+    }
+
+    catch(err){
+
+        res.status(404).json({
+            success: false,
+            message: err.message
+        })
+
+    }
+}
