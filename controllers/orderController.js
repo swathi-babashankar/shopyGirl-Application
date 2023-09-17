@@ -64,6 +64,32 @@ exports.placeOrder = async(req, res) => {
     }
 }
 
+// Get all orders
+
+exports.getAllOrders = async (req, res) => {
+
+    try{
+
+        const allOrders = await Order.find({});
+
+        res.status(202).json({
+            success: true,
+            message: "Here are your orders",
+            allOrders
+        })
+
+    }
+
+    catch(err){
+
+        res.status(404).json({
+            success: false,
+            message: err.message
+        })
+
+    }
+}
+
 // Edit address or contact 
 
 exports.editOrderDetails = async (req, res) => {
