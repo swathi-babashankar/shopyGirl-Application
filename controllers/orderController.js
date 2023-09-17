@@ -45,11 +45,11 @@ exports.placeOrder = async(req, res) => {
 
         let couponDisc = Coupon.discount;
         console.log(couponDisc);
+        let discountAmt = (couponDisc/100) * prodPrice;
+        console.log(discountAmt);
 
-        let netAmt = prodPrice - couponDisc;
+        let netAmt = prodPrice - discountAmt;
         console.log(netAmt);
-
-
 
         // create an order it needs razorpay account and details
 
