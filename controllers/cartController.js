@@ -1,6 +1,6 @@
-import Cart from "../model/cartSchema";
-import User from "../model/userSchema";
-import Product from "../model/tshirtSchema"
+const Cart = require("../model/cartSchema");
+const User = require("../model/userSchema");
+const Product = require("../model/tshirtSchema");
 
 exports.addToCart = async(req, res) => {
 
@@ -12,7 +12,7 @@ exports.addToCart = async(req, res) => {
         const quantity = req.body;
         const price = Product.price;
 
-        const token = req.cookies;
+        const {token} = req.cookies;
 
         console.log(price);
 
