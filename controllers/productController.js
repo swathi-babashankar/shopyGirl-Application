@@ -1,10 +1,10 @@
-import Mongoose from "mongoose";
-import product from "../model/tshirtSchema";
-import formidable from "formidable";
-import fs from "fs"
-import config from "../config/index.js";
-const Aggregate = require("mongoose")
-import {s3DeleteFile, s3FileUpload} from "../services/imageHandler.js"
+const Mongoose = require("mongoose");
+const product = require("../model/tshirtSchema");
+const formidable = require("formidable");
+const fs = require("fs");
+const config = require("../config/index.js");
+// const Aggregate = require("mongoose")
+const {s3DeleteFile, s3FileUpload} = require("../services/imageHandler.js");
 
 exports.createProduct = async (req, res) => {
 
@@ -108,7 +108,7 @@ exports.getProductById = async(req, res) => {
     try{
 
         const {prodId} = req.params;
-        const getProdById = await product.findById({prodId})
+        const getProdById = await product.findById(prodId)
 
         if(getProdById){
             res.status(202).json({
@@ -138,7 +138,7 @@ exports.updateProductById = async(req, res) => {
         const {prodId} = req.params;
 
         // how to ask user which field he want to update
-        // what if we want to update image
+        // what if we want to update image with formidable and remove old images
         if(!name || !brand || !category || !price || discount){
             throw new Error("Please fill necessary fields")
         }
