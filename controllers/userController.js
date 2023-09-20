@@ -1,8 +1,8 @@
-import  {user} from "../model/userSchema";
+const  {user} = require("../model/userSchema");
 // const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-export const cookieProp = {
+exports.cookieProp = {
     expires: new Date(Date.now(2*24*60*60*1000)),
     httpOnly: true
 }
