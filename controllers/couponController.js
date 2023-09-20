@@ -15,7 +15,7 @@ exports.createCoupon = async (req, res) => {
 
         if(!discount){
             throw new Error("Please specify discount percentage")
-            // convert the percent to amount in ordercontroller 
+            // convert the percent to amount in ordercontroller - done
         }
 
         const couponExist = await Coupon.findOne({couponCode});
@@ -62,6 +62,114 @@ exports.getCoupons = async(req, res) => {
 
         res.status(202).json({
             success: true,
+            message: err.message
+        })
+
+    }
+}
+
+exports.editCoupon = async(req, res) => {
+
+    try{
+
+        const {couponId} = req.params;
+        const {couponCode, discount, validTill} = req.body;
+
+        if(!couponId){
+            throw new Error("Please pass the coupon ID")
+        }
+
+        if(!couponCode || !discount || !validTill){
+            throw new Error("Please fill all the necessary fields")
+        }
+
+        const updateCoupon = await Coupon.findByIdAndUpdate(couponId, {couponCode, discount, validTill});
+
+        if(!updateCoupon){
+            throw new Error("Sorry could not update the coupon")
+        }
+
+        res.status(202).json({
+            success: true,
+            message: "Coupon updated successfully",
+            updateCoupon
+        })
+
+    }
+
+    catch(err){
+
+        res.status(404).json({
+            success: false,
+            message: err.message
+        })
+
+    }
+}
+
+exports.deleteCoupon = async (req, res) => {
+
+    try{
+
+        const {couponId} = req.params;
+
+        if(!couponId){
+            throw new Error("Please pass the coupon ID")
+        }
+
+        const couponDeleted = await Coupon.findByIdAndDelete(couponId);
+
+        res.status(202).json({
+            success: true,
+            message: "Coupon deleted successfully",
+            couponDeleted
+        })
+    }
+
+    catch(err){
+
+        res.status(404).json({
+            success: false,
+            message: err.message
+        })
+
+    }
+}
+
+exports.deleteExpiredCoupon = async (req, res) => {
+
+    try{
+
+        const {couponId} = req.params;
+        const {validTill} = req.body;
+        const today = new Date().setFullYear();
+        
+        // const {couponValid} = Coupon
+
+        if(!couponId){
+            throw new Error("Please pass your coupon ID")
+        }
+
+        if(!validTill){
+            throw new Error("Please enter the date coupon expires")
+        }
+
+        if(validTill >= today){
+            const deleteExpCoupon = await Coupon.findByIdAndDelete(couponId);
+
+            res.status(202).json({
+                success: true,
+                message: "Expired coupon deleted successfully",
+                deleteExpCoupon
+            })
+
+        }
+    }
+
+    catch(err){
+
+        res.status(404).json({
+            success: false,
             message: err.message
         })
 
