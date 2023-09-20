@@ -1,8 +1,8 @@
-import Cart from "../model/cartSchema";
-import User from "../model/userSchema";
-import Product from "../model/tshirtSchema";
-import Coupon from "../model/couponSchema";
-import Order from "../model/orderSchema";
+const Cart = require("../model/cartSchema");
+const User = require("../model/userSchema");
+const Product = require("../model/tshirtSchema");
+const Coupon = require("../model/couponSchema");
+const Order = require("../model/orderSchema");
 
 /* Create order 
 - ProdId, Address, Payment options*/
@@ -70,6 +70,8 @@ exports.getAllOrders = async (req, res) => {
 
     try{
 
+        // Not sure how it works 
+        if(req.cookies.token){
         const allOrders = await Order.find({});
 
         res.status(202).json({
@@ -77,6 +79,11 @@ exports.getAllOrders = async (req, res) => {
             message: "Here are your orders",
             allOrders
         })
+    }
+
+    else{
+        throw new Error("This route cannot be accessed without signing in")
+    }
 
     }
 
