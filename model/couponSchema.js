@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const couponSchema = mongoose.Schema({
 
@@ -11,6 +11,11 @@ const couponSchema = mongoose.Schema({
     discount:{
         type: Number,
         required: [true, "Discount amount is mandatory"]
+    },
+
+    validTill: {
+        type: Date,
+        required: true
     }
 },
 
@@ -18,4 +23,4 @@ const couponSchema = mongoose.Schema({
     timestamps: true
 })
 
-export default mongoose.model("coupon", couponSchema)
+module.exports =  mongoose.model("coupon", couponSchema);
