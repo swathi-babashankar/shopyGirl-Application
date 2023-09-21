@@ -1,5 +1,6 @@
 const mongoose  = require("mongoose");
 const {Schema} = require("mongoose");
+const {tshirtSchema} = require( __dirname + "/tshirtSchema.js")
 
 const cartSchema = mongoose.Schema({
 
@@ -10,8 +11,7 @@ const cartSchema = mongoose.Schema({
     },
 
     product: {
-        type: [{type: Schema.Types.Subdocument,
-        ref: "tshirt"}]
+        type: [tshirtSchema]
     },
 
     quantity: {
@@ -20,4 +20,4 @@ const cartSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("cart", cartSchema)
+module.exports = mongoose.model("cart", cartSchema);
