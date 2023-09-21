@@ -1,6 +1,7 @@
-import mongoose, { Schema } from "mongoose";
-import config from "../config/index";
-import jwt from "jsonwebtoken";
+const mongoose = require("mongoose");
+const {Schema} = require("mongoose")
+const config = require("../config/index");
+const jwt = require("jsonwebtoken");
 
 const userSchema = mongoose.Schema({
 
