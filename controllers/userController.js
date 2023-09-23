@@ -193,6 +193,7 @@ exports.updateUser = async(req, res) => {
     console.log(userUpdated);
     console.log(regenratedToken);
 
+    userUpdated.token = regenratedToken;
     userUpdated.password = undefined;
 
     res.cookies("token", regenratedToken, cookieProp)
