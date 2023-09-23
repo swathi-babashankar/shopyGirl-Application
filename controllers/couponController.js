@@ -1,4 +1,5 @@
-import Coupon from "../model/couponSchema"
+
+const Coupon = require("../model/couponSchema");
 
 
 exports.createCoupon = async (req, res) => {
