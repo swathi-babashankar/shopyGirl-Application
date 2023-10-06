@@ -3,7 +3,8 @@ const bcrypt = require("bcrypt");
 const tokenGenerate = require("../model/userSchema");
 const JWT = require("jsonwebtoken")
 const expressJWT = require("express-jwt");
-const {config} = require("../config/index")
+const {config} = require("../config/index");
+const { ObjectId } = require("mongodb");
 
 exports.cookieProp = {
     expires: new Date(Date.now(2*24*60*60*1000)),
@@ -203,9 +204,12 @@ exports.updateUser = async(req, res) => {
 
     const {name, email, password,newPswd, confirmPswd, phoneNo} = req.body;
     const existinguser = await user.findOne({email})
-    const {userId} = req.params;
+    const {id} = req.query;
+    console.log("id is",id);
+    const newId = ObjectId.createFromHexString(id)
+    console.log(newId);
 
-    if(!userId){
+    if(!id){
         throw new Error("Sorry we could not fetch your ID")
     }
 
@@ -225,7 +229,7 @@ exports.updateUser = async(req, res) => {
     if(newPswd && confirmPswd){
 
     if(newPswd === confirmPswd){
-        const pswdUpdate = await user.findByIdAndUpdate(userId, {password});
+        const pswdUpdate = await user.findByIdAndUpdate(newId, {password});
     }
 
     else{
@@ -233,19 +237,19 @@ exports.updateUser = async(req, res) => {
     }
 }
     
-    const userUpdated = await user.findByIdAndUpdate(userId, {name, email, password, phoneNo});
+    const userUpdated = await user.findByIdAndUpdate(newId, {name, email, password, phoneNo});
     
 
     // const regenratedToken = newToken(userUpdated);
     console.log(userUpdated);
-    console.log(regenratedToken);
-let token
+    // console.log(regenratedToken);
+ let token
     userUpdated.token = newToken(userUpdated);
 
     token = userUpdated.token;
     userUpdated.password = undefined;
 
-    res.cookies("token", token, this.cookieProp)
+    res.cookie("token", token, this.cookieProp)
     res.status(202).json({
         success: true,
         message: "User credentials updated successfully",
@@ -293,16 +297,19 @@ exports.deleteUser = async (req, res) => {
     try{
 
         const {email, password} = req.body;
-        const existingpswd = user.password;
+        const {id} = req.query
+        const existingUser = await user.findOne({email})
 
         if(!email || !password){
             throw new Error("Please enter your Email and password")
         }
 
-        const pswdCompared = bcrypt.compare(password, existingpswd);
+        const pswdCompared = bcrypt.compare(password, existingUser.password);
 
-        if(pswdCompared === true){
-            const userDeleted = await user.findOneAndDelete({email})
+        const objectId = ObjectId.createFromHexString(id)
+
+        if(pswdCompared){
+            const userDeleted = await user.findByIdAndDelete(objectId, {email})
             console.log(userDeleted);
             
             res.status(201).json({
