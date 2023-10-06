@@ -1,16 +1,37 @@
-const  {user} = require("../model/userSchema");
-// const jwt = require("jsonwebtoken");
+const   user = require("../model/userSchema");
 const bcrypt = require("bcrypt");
+const tokenGenerate = require("../model/userSchema");
+const JWT = require("jsonwebtoken")
+const expressJWT = require("express-jwt");
+const {config} = require("../config/index")
 
 exports.cookieProp = {
     expires: new Date(Date.now(2*24*60*60*1000)),
     httpOnly: true
 }
 
+// exports.newtoken = 
+//         JWT.sign({
+//         id: this._id,
+        
+//         },
+//          config.JWT_SECRET,
+//          {expiresIn: config.JWT_EXPIRY},
+//          )
+function newToken(user){
+    return JWT.sign({
+                id: user._id,
+                },
+                 config.JWT_SECRET,
+                 {expiresIn: config.JWT_EXPIRY},
+                 )
+}
+
 exports.createUser = async(req, res) => {
 
     try{
-        const {name, email, password, phoneNo} = req.body;
+        const {name, email, phoneNo} = req.body;
+        let {password} = req.body;
 
         if(!name || !email || !password || !phoneNo){
             throw new Error("Please enter your Name, Email, Password, PhoneNo")
@@ -24,25 +45,40 @@ exports.createUser = async(req, res) => {
             throw new Error("User with entered Email already exist")
         }
 
-        const encryptedpswd = bcrypt.hash(password, 13);
+        const saltround = 13
+        // point toString()`
+        const encryptedpswd = (await bcrypt.hash(password, saltround)).toString();
 
         const userCreated = await user.create({
             name,
             email,
-            encryptedpswd,
+            password: encryptedpswd,
             phoneNo
         })
         
         console.log(userCreated);
 
         // Creating token for every new user/D
-
-        const token = userCreated.tokenGenerate();
-
-        userCreated.token = token;
+        // let newToken = tokenGenerate()
+        
+        // const token = 
+        // JWT.sign({
+        // id: userCreated._id,
+        // },
+        //  config.JWT_SECRET,
+        //  {expiresIn: config.JWT_EXPIRY},
+        //  )
+        let token
+       userCreated.token = newToken(userCreated)
+    // userCreated.token = user.tokenGenerate()
+       token = userCreated.token
+        
+        console.log("token is", userCreated.token);
         userCreated.password = undefined;
+
         // setting up the token to cookies
-        res.cookie("token", token, cookieProp)
+
+        res.cookie("token", token, this.cookieProp)
 
         res.status(200).json({
             success: true,
@@ -112,7 +148,7 @@ exports.userLogin = async(req, res) => {
     try{
 
         const {email, password} = req.body;
-        const existingPswd = user.password;
+        // const password = user.password;
 
         if(!email || !password){
             throw new Error("Please enter your Email and password")
@@ -123,13 +159,24 @@ exports.userLogin = async(req, res) => {
         if(!userLoggedin){
             throw new Error("Your credentials are invalid... Please try again")
         }
+        
+        // const hashed = (await bcrypt.hash(newpassword, 13)).toString()
+        console.log(userLoggedin.password, password);
 
-        const pswdValidated = bcrypt.compare(password, existingPswd);
+        const pswdValidated = await bcrypt.compare(password, userLoggedin.password);
+
+        if(pswdValidated === false){
+            throw new Error("Wrong password. Please try again")
+        }
 
         if(pswdValidated === true){
-            const token = userLoggedin.tokenGenerate();
-            userLoggedinpassword = undefined;
-            res.cookie("token", token, cookieProp)
+
+            let token;
+            userLoggedin.token = newToken(userLoggedin);
+            token = userLoggedin.token;
+
+            userLoggedin.password = undefined;
+            res.cookie("token", token, this.cookieProp)
 
             res.status(202).json({
                 success: true,
@@ -155,7 +202,7 @@ exports.updateUser = async(req, res) => {
     try{
 
     const {name, email, password,newPswd, confirmPswd, phoneNo} = req.body;
-    const {existingPswd} = user.password;
+    const existinguser = await user.findOne({email})
     const {userId} = req.params;
 
     if(!userId){
@@ -166,7 +213,7 @@ exports.updateUser = async(req, res) => {
         throw new Error("Please Enter your Name, Email, Password and PhoneNo");
     }
 
-    const pswdCompared = bcrypt.compare(password, existingPswd );
+    const pswdCompared = bcrypt.compare(password, existinguser.password );
 
     if(pswdCompared === false){
 
@@ -189,14 +236,16 @@ exports.updateUser = async(req, res) => {
     const userUpdated = await user.findByIdAndUpdate(userId, {name, email, password, phoneNo});
     
 
-    const regenratedToken = userUpdated.tokenGenerate();
+    // const regenratedToken = newToken(userUpdated);
     console.log(userUpdated);
     console.log(regenratedToken);
+let token
+    userUpdated.token = newToken(userUpdated);
 
-    userUpdated.token = regenratedToken;
+    token = userUpdated.token;
     userUpdated.password = undefined;
 
-    res.cookies("token", regenratedToken, cookieProp)
+    res.cookies("token", token, this.cookieProp)
     res.status(202).json({
         success: true,
         message: "User credentials updated successfully",
@@ -275,3 +324,15 @@ exports.deleteUser = async (req, res) => {
     }
 
 }
+
+// To make routes protected
+
+exports.isLoggedIn = () => expressJWT({
+        secret: config.JWT_SECRET,
+        algorithm: "SHA256",
+        userProperty: "auth"
+    })
+
+
+
+
