@@ -71,7 +71,7 @@ exports.createUser = async(req, res) => {
         //  )
         let token
        userCreated.token = newToken(userCreated)
-    // userCreated.token = user.tokenGenerate()
+    // userCreated.token = tokenGenerate(userCreated)
        token = userCreated.token
         
         console.log("token is", userCreated.token);
@@ -334,11 +334,6 @@ exports.deleteUser = async (req, res) => {
 
 // To make routes protected
 
-exports.isLoggedIn = () => expressJWT({
-        secret: config.JWT_SECRET,
-        algorithm: "SHA256",
-        userProperty: "auth"
-    })
 
 
 
