@@ -1,4 +1,5 @@
 
+const { ObjectId } = require("mongodb");
 const { config } = require("../config/index");
 const Admin = require("../model/adminSchema");
 const bcrypt = require("bcrypt");
@@ -77,7 +78,6 @@ exports.createAdmin = async (req, res) =>{
 
     catch(err){
 
-        console.log("catch block");
         res.status(404).json({
             success: false,
             message: err.message
@@ -90,18 +90,20 @@ exports.editAdmin = async (req, res) => {
 
     try{
 
-        const {adminId} = req.params;
-        const {email, password, newPswd, confirmPaswd} = req.body;
-        const {adminToken} = req.cookies;
-        const {oldPaswd} = Admin.password;
+        const {id} = req.query;
+        let {email, password, newPswd, confirmPaswd} = req.body;
+        // const {adminToken} = req.cookies;
 
-        if(!adminId){
+      const newId =  ObjectId.createFromHexString(id)
+        const existingAcc = await Admin.findOne({email});
+
+        if(!id){
             throw new Error("Sorry we could not grab your ID")
         }
 
-        if(!adminToken){
-            throw new Error("Sorry you are not authorized to access this page ")
-        }
+        // if(!adminToken){
+        //     throw new Error("Sorry you are not authorized to access this page ")
+        // }
 
         if(!email || !password){
             throw new Error("Please fill all the fields")
@@ -109,9 +111,9 @@ exports.editAdmin = async (req, res) => {
 
         // Comparing entered password with existing admin password
 
-        const comparePswd = bcrypt.compare(oldPaswd, password);
+        const comparePswd = bcrypt.compare(password, existingAcc.password);
         if(comparePswd === false){
-            throw new Error("Sorry your passwords does nit match");
+            throw new Error("Sorry your passwords does not match");
         }
 
         // Replacing the password field with new password if the new password and confirmation password are same
@@ -120,17 +122,20 @@ exports.editAdmin = async (req, res) => {
             password = newPswd;
         }
 
-        console.log(password);
+        // console.log(password);
 
-        const updatedDetails = await Admin.findByIdAndUpdate(adminId, {email, password});
+        const updatedDetails = await Admin.findByIdAndUpdate(newId, {email, password});
 
         // Regenerating the token
 
-       const regenratedToken = updatedDetails.tokenGenerate();
+        let adminToken;
+    //    const regenratedToken = updatedDetails.tokenGenerate();
 
-       updatedDetails.adminToken = regenratedToken;
+       updatedDetails.adminToken = generateNewToken(updatedDetails);
+       adminToken = updatedDetails.adminToken;
        updatedDetails.password = undefined;
 
+       res.cookie("adminToken", adminToken, this.setCookieOption)
        res.status(202).json({
         success: true,
         message: "Admin credentials updated successfully",
@@ -220,13 +225,13 @@ exports.deleteAccount = async (req, res) => {
     try{
 
         const {email, password} = req.body;
-        const {existingPswd} = Admin.password;
+        const existingAcc =  await Admin.findOne({email});
 
         if(!email || !password){
             throw new Error("Please enter your Email and Password to delete account")
         }
 
-        const comparePswd = bcrypt.compare(password, existingPswd);
+        const comparePswd = bcrypt.compare(password, existingAcc.password);
 
         if(comparePswd === false){
             throw new Error("Invalid credentials. Please enter valid Email and Password")
