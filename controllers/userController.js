@@ -1,24 +1,16 @@
-const   user = require("../model/userSchema");
+const user = require("../model/userSchema");
 const bcrypt = require("bcrypt");
-const tokenGenerate = require("../model/userSchema");
 const JWT = require("jsonwebtoken")
-const expressJWT = require("express-jwt");
 const {config} = require("../config/index");
 const { ObjectId } = require("mongodb");
+
 
 exports.cookieProp = {
     expires: new Date(Date.now(2*24*60*60*1000)),
     httpOnly: true
 }
 
-// exports.newtoken = 
-//         JWT.sign({
-//         id: this._id,
-        
-//         },
-//          config.JWT_SECRET,
-//          {expiresIn: config.JWT_EXPIRY},
-//          )
+
 function newToken(user){
     return JWT.sign({
                 id: user._id,
@@ -60,18 +52,9 @@ exports.createUser = async(req, res) => {
         console.log(userCreated);
 
         // Creating token for every new user/D
-        // let newToken = tokenGenerate()
-        
-        // const token = 
-        // JWT.sign({
-        // id: userCreated._id,
-        // },
-        //  config.JWT_SECRET,
-        //  {expiresIn: config.JWT_EXPIRY},
-        //  )
+       
         let token
        userCreated.token = newToken(userCreated)
-    // userCreated.token = tokenGenerate(userCreated)
        token = userCreated.token
         
         console.log("token is", userCreated.token);
@@ -107,7 +90,6 @@ exports.getUser = async(req, res) => {
     try{
 
     const userFetched = await user.find({});
-    // If we want to get particular user by email or can we ask user using a prompt msg
 
     const {email} = req.body;
     if(email){
@@ -155,20 +137,19 @@ exports.userLogin = async(req, res) => {
             throw new Error("Please enter your Email and password")
         }
 
+        const pswdValidated = await bcrypt.compare(password, userLoggedin.password);
+
+        if(pswdValidated === false){
+            throw new Error("Invalid EMAIL or PASSWORD. Please try again")
+        }
+
         const userLoggedin = await user.findOne({email}).select("+password");
 
         if(!userLoggedin){
             throw new Error("Your credentials are invalid... Please try again")
         }
         
-        // const hashed = (await bcrypt.hash(newpassword, 13)).toString()
         console.log(userLoggedin.password, password);
-
-        const pswdValidated = await bcrypt.compare(password, userLoggedin.password);
-
-        if(pswdValidated === false){
-            throw new Error("Wrong password. Please try again")
-        }
 
         if(pswdValidated === true){
 
@@ -202,7 +183,9 @@ exports.updateUser = async(req, res) => {
 
     try{
 
-    const {name, email, password,newPswd, confirmPswd, phoneNo} = req.body;
+    const {name, email, newPswd, confirmPswd, phoneNo} = req.body;
+    let {password} = req.body
+    
     const existinguser = await user.findOne({email})
     const {id} = req.query;
     console.log("id is",id);
@@ -217,9 +200,10 @@ exports.updateUser = async(req, res) => {
         throw new Error("Please Enter your Name, Email, Password and PhoneNo");
     }
 
-    const pswdCompared = bcrypt.compare(password, existinguser.password );
+    
+    const pswdCompared = await bcrypt.compare(password, existinguser.password );
 
-    if(pswdCompared === false){
+    if(!pswdCompared){
 
         throw new Error("Sorry your password do not match");
         
@@ -229,21 +213,22 @@ exports.updateUser = async(req, res) => {
     if(newPswd && confirmPswd){
 
     if(newPswd === confirmPswd){
-        const pswdUpdate = await user.findByIdAndUpdate(newId, {password});
+        password = newPswd;
     }
 
     else{
         throw new Error("Value of password and confirm password field should be same")
     }
 }
+
+const encryPswd = (await bcrypt.hash(password, 13)).toString()
     
-    const userUpdated = await user.findByIdAndUpdate(newId, {name, email, password, phoneNo});
+    const userUpdated = await user.findByIdAndUpdate(newId, {name, email, password: encryPswd, phoneNo});
     
 
-    // const regenratedToken = newToken(userUpdated);
+    
     console.log(userUpdated);
-    // console.log(regenratedToken);
- let token
+    let token
     userUpdated.token = newToken(userUpdated);
 
     token = userUpdated.token;
