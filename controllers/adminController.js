@@ -26,7 +26,9 @@ exports.createAdmin = async (req, res) =>{
 
     try{
 
-        const {name, phoneNo, email, password, secret} = req.body;
+        const {name, phoneNo, email, secret} = req.body;
+        
+        let {password} = req.body
 
         // send OTP to provided phoneNumber with twilio and send mail with SMTP
 
@@ -111,7 +113,7 @@ exports.editAdmin = async (req, res) => {
 
         // Comparing entered password with existing admin password
 
-        const comparePswd = bcrypt.compare(password, existingAcc.password);
+        const comparePswd = await bcrypt.compare(password, existingAcc.password);
         if(comparePswd === false){
             throw new Error("Sorry your passwords does not match");
         }
@@ -122,9 +124,14 @@ exports.editAdmin = async (req, res) => {
             password = newPswd;
         }
 
+        else{
+            throw new Error("Value of password and confirm password field should be same")
+        }
         // console.log(password);
 
-        const updatedDetails = await Admin.findByIdAndUpdate(newId, {email, password});
+        const encryPswd = (await bcrypt.hash(password, 15)).toString()
+
+        const updatedDetails = await Admin.findByIdAndUpdate(newId, {email, password: encryPswd});
 
         // Regenerating the token
 
@@ -158,24 +165,33 @@ exports.adminLogin = async (req, res) => {
     try{
 
         const {email, password, secret} = req.body;
-        const {existingPswd} = Admin.password;
+        const existingAcc = await Admin.findOne({email});
 
         if(!email || !password || !secret){
             throw new Error("Enter your EMAIL, PASSWORD and SECRET");
         }
 
-        const adminLoggedIn = await Admin.findOne({email}).select("+password", "+secret");
+        const comparePswd = await bcrypt.compare(password, existingAcc.password);
 
+        if(comparePswd === false){
+            throw new Error("Invalid Email or Password")
+        }
+
+        const adminLoggedIn = await Admin.findOne({email}).select("+password");
+        
         if(!adminLoggedIn){
             throw new Error("Invalid login creadentials")
         }
 
-        const comparePswd = bcrypt.compare(password, existingPswd);
+        ;
+        // console.log(existingAcc.password);
 
-        if(comparePswd === true){
+        if(comparePswd){
 
-            const adminToken = adminLoggedIn.tokenGenerate();
-            adminLoggedIn.adminToken = adminToken;
+            let adminToken;
+            // const adminToken = adminLoggedIn.tokenGenerate();
+            adminLoggedIn.adminToken = generateNewToken(adminLoggedIn);
+            adminToken = adminLoggedIn.adminToken;
             adminLoggedIn.password = undefined;
 
             res.cookie("adminToken", adminToken, this.setCookieOption);
