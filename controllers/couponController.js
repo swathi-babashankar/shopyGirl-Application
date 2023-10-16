@@ -1,4 +1,5 @@
 
+const { ObjectId } = require("mongodb");
 const Coupon = require("../model/couponSchema");
 
 
@@ -6,7 +7,7 @@ exports.createCoupon = async (req, res) => {
 
     try{
 
-        const {couponCode, discount} = req.body;
+        const {couponCode, discount, expiry} = req.body;
         // const {couponId} = req.params;
         if(!couponCode.match(/\d [A-Z] [a-z]+/g)){
 
@@ -19,12 +20,16 @@ exports.createCoupon = async (req, res) => {
             // convert the percent to amount in ordercontroller - done
         }
 
+        if(!couponCode || !expiry){
+            throw new Error("Enter coupon code and Expiry date to create a coupon")
+        }
+
         const couponExist = await Coupon.findOne({couponCode});
         if(couponExist){
             throw new Error("Coupon code already exist. Please change the code")
         }
 
-        const couponCreated = await Coupon.create({couponCode, discount});
+        const couponCreated = await Coupon.create({couponCode, discount, expiry});
 
         res.status(202).json({
             success: true,
@@ -73,8 +78,10 @@ exports.editCoupon = async(req, res) => {
 
     try{
 
-        const {couponId} = req.params;
+        const {couponId} = req.query;
         const {couponCode, discount, validTill} = req.body;
+
+        const newId = ObjectId.createFromHexString(couponId)
 
         if(!couponId){
             throw new Error("Please pass the coupon ID")
@@ -84,7 +91,7 @@ exports.editCoupon = async(req, res) => {
             throw new Error("Please fill all the necessary fields")
         }
 
-        const updateCoupon = await Coupon.findByIdAndUpdate(couponId, {couponCode, discount, validTill});
+        const updateCoupon = await Coupon.findByIdAndUpdate(newId, {couponCode, discount, validTill});
 
         if(!updateCoupon){
             throw new Error("Sorry could not update the coupon")
@@ -112,13 +119,15 @@ exports.deleteCoupon = async (req, res) => {
 
     try{
 
-        const {couponId} = req.params;
+        const {couponId} = req.query;
+
+        const newId = ObjectId.createFromHexString(couponId)
 
         if(!couponId){
             throw new Error("Please pass the coupon ID")
         }
 
-        const couponDeleted = await Coupon.findByIdAndDelete(couponId);
+        const couponDeleted = await Coupon.findByIdAndDelete(newId);
 
         res.status(202).json({
             success: true,
@@ -141,9 +150,11 @@ exports.deleteExpiredCoupon = async (req, res) => {
 
     try{
 
-        const {couponId} = req.params;
+        const {couponId} = req.query;
         const {validTill} = req.body;
         const today = new Date().setFullYear();
+
+        const newId = ObjectId.createFromHexString(couponId)
         
         // const {couponValid} = Coupon
 
@@ -156,7 +167,7 @@ exports.deleteExpiredCoupon = async (req, res) => {
         }
 
         if(validTill >= today){
-            const deleteExpCoupon = await Coupon.findByIdAndDelete(couponId);
+            const deleteExpCoupon = await Coupon.findByIdAndDelete(newId);
 
             res.status(202).json({
                 success: true,
