@@ -2,15 +2,15 @@ const express = require("express");
 const router = express.Router();
 
 const {createCoupon, getCoupons, editCoupon, deleteCoupon, deleteExpiredCoupon} = require("../controllers/couponController");
-const {isAdminLoggedIn} = require("../controllers/adminController")
+const {adminAuth} = require("../authentication/adminAuth");
 
 // install express-jwt and make these routes protected 
 // only admin can create edit and delete coupons so these routes are protected 
 
-router.post("/createCoupon/:adminId?",isAdminLoggedIn, createCoupon);
-router.get("/getCoupons/:adminId?", getCoupons);
-router.put("/editCoupon/:couponId/:adminId?",isAdminLoggedIn, editCoupon);
-router.delete("/deleteCoupon/:couponId/:adminId",isAdminLoggedIn, deleteCoupon);
-router.delete("/deleteExpiredCoupon/:couponId/:adminId",isAdminLoggedIn, deleteExpiredCoupon);
+router.post("/createCoupon/:adminId?",adminAuth, createCoupon);
+router.get("/getCoupons", getCoupons);
+router.put("/editCoupon/:couponId?/:adminId?",adminAuth, editCoupon);
+router.delete("/deleteCoupon/:couponId?/:adminId?",adminAuth, deleteCoupon);
+router.delete("/deleteExpiredCoupon/:couponId?/:adminId?",adminAuth, deleteExpiredCoupon);
 
 module.exports = router;
