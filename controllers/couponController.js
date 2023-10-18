@@ -7,9 +7,9 @@ exports.createCoupon = async (req, res) => {
 
     try{
 
-        const {couponCode, discount, expiry} = req.body;
-        // const {couponId} = req.params;
-        if(!couponCode.match(/\d [A-Z] [a-z]+/g)){
+        const {couponCode, discount, validTill} = req.body;
+
+        if(!couponCode.match(/[\w\d]+/)){
 
             throw new Error("Please create a coupon code atleast with a digit and an uppercase letter")
 
@@ -20,7 +20,7 @@ exports.createCoupon = async (req, res) => {
             // convert the percent to amount in ordercontroller - done
         }
 
-        if(!couponCode || !expiry){
+        if(!couponCode || !validTill){
             throw new Error("Enter coupon code and Expiry date to create a coupon")
         }
 
@@ -29,7 +29,7 @@ exports.createCoupon = async (req, res) => {
             throw new Error("Coupon code already exist. Please change the code")
         }
 
-        const couponCreated = await Coupon.create({couponCode, discount, expiry});
+        const couponCreated = await Coupon.create({couponCode, discount, validTill});
 
         res.status(202).json({
             success: true,
