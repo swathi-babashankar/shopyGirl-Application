@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const config = require("../config/index")
 
 const adminSchema = mongoose.Schema({
 
     name: {
         type: String,
+        required: true
     },
 
     phoneNo: {
@@ -14,36 +13,30 @@ const adminSchema = mongoose.Schema({
     },
 
     email: {
-        type: String
+        type: String,
+        required: true
     },
 
     password: {
-        type: String
+        type: String,
+        required: true
     },
 
     secret: {
-        type: String
+        type: String,
+        required: true
     },
 
     default: {
         type: Boolean,
         default: true
+    },
+    adminToken : {
+        type: String
     }
     
 });
 
-adminSchema.methods = {
-    tokenGenerate: function(){
-        return jwt.sign(
-            {
-            id: this._id,
-            email: this.email },
-            config.ADMIN_JWT_SECRET,
-            {expiresIn: config.ADMIN_JWT_EXPIRY},
-            {algorithm: "SHA256"}
 
-            )
-    }
-}
 
 module.exports = mongoose.model("admin", adminSchema);
