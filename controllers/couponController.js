@@ -152,9 +152,9 @@ exports.deleteExpiredCoupon = async (req, res) => {
 
         const {couponId} = req.query;
         const {validTill} = req.body;
-        const today = new Date().setFullYear();
+        const today = Date()
 
-        const newId = ObjectId.createFromHexString(couponId)
+        const newId =  ObjectId.createFromHexString(couponId)
         
         // const {couponValid} = Coupon
 
