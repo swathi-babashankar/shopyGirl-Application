@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const {Schema} = require("mongoose")
-const config = require("../config/index");
-const jwt = require("jsonwebtoken");
 
 const userSchema = mongoose.Schema({
 
@@ -19,42 +17,32 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         minLength: [6, "Password should atleast have 6 charecters "],
-        maxLength: [20, "Password must not exceed 20 charecters"],
         required: [true, "Please enter your password"]
     },
 
-    PhoneNo: {
+    phoneNo: {
         type: String,
         minLength: [10, "Please enter valid mobile number"],
         maxLength: [10, "Please enter valid mobile number"],
-        required: [true, "Please enter your mobile number"]
+        required: [true, "Please enter your mobile number"],
     },
 
     productId: {
         type: [{type: Schema.Types.ObjectId,
         ref: "tshirt"}]
-    }
+    },
+    token: {
+        type: String
+    },
 
-},
+
+    },
 
 {
     timestamps: true
-}
+},
 
-);
 
-userSchema.methods = {
-    tokenGenerate: function(){
-        return jwt.sign(
-            {
-                id: this._id, 
-                email: this.email},
-                config.JWT_SECRET, 
-                {expiresIn: config.JWT_EXPIRY}, 
-                {algorithm: "SHA256"}
-            )
-
-    }
-}
+)
 
 module.exports = mongoose.model("user", userSchema);
