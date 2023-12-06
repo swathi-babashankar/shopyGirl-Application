@@ -1,67 +1,73 @@
-const Mongoose = require("mongoose");
 const product = require("../model/tshirtSchema");
-const formidable = require("formidable");
-const fs = require("fs");
-const config = require("../config/index.js");
-// const Aggregate = require("mongoose")
-const {s3DeleteFile, s3FileUpload} = require("../services/imageHandler.js");
+const {cloudFileUpload, cloudFileDelete} = require("../services/cloudinaryHandler.js");
+const Admin = require("../model/adminSchema")
+
 
 exports.createProduct = async (req, res) => {
 
-    const form = formidable({
-        multiples: true,
-        keepExtensions: true
-    })
+   try {
 
-    form.parse(req, async function(err, fields, files){
+    const {name, brand, category, price, discount} = req.body;
+    console.log(req.body, name);
+    const {adminId} = req.query;
+
+    if(!name || !brand || !category || !price) {
+
+        throw new Error("Please fill all the necessary fields")
+    }
+
+    if(!adminId){
+        throw new Error("Please pass adminId")
+    }
+
+    const adminExist = await Admin.findById(adminId);
+
+    if(!adminExist){
+        throw new Error("Admin does not exist")
+    }
+
+    console.log("req.files is",req.files);
+    const imageLocalPath = req.files?.images[0]?.path;
+
+    console.log(imageLocalPath);
     
-        try{
+    if(!imageLocalPath){
+        throw new Error("Sorry! We could not get the image path")
+    }
 
-            if(err){
-                throw new Error("Something Went Wrong :(")
-            }
+    // const localFilePath = JSON.stringify(imageLocalPath)
+    // console.log(localFilePath);
+    const imageUploadResp = await cloudFileUpload(imageLocalPath);
 
-            let productId = new Mongoose.Types.ObjectId().toHexString();
-            console.log(fields, files);
+    console.log("cloud resp");
+    console.log("Upload response from cloudinary", imageUploadResp);
 
-            if(!fields.name || !fields.brand || !fields.category || !fields.price || !fields.discount){
-                throw new Error("Please fill necessary fields about the product")
-            }
+    if(!imageUploadResp){
+        throw new Error("Image is required")
+    }
+     
+    // Extracting the image url from cloudinary response stored
+    // const url = imageUploadResp.url
+    images = imageUploadResp.secure_url;
+    const publicId = imageUploadResp.public_id
 
-            let imgArrResp = Promise.all(
-                // to make sure the images coming are array
-                Object.keys(files).map( async (filekey, index) => {
-                    const elements = files[filekey];
-
-                    let data = fs.readFileSync(elements.filepath)
-
-                    const imgUpload = await s3FileUpload({
-                        bucketName: config.S3_BUCKET_NAME,
-                        key: `product/${productId}/photos_${index + 1}.png`,
-                        body: data,
-                        contentType: elements.mimetype
-                    })
-
-                    return{
-                        secure_url: imgUpload.Location
-                    }
-
-             })       
-            );
-    
-            let imgArray = await imgArrResp;
-            const productCreated = await product.create({
-                _id: productId,
-                images: imgArray,
-                ...fields
-            })
-
+        const productCreated = await product.create({
+            images,
+            publicId,
+            name, 
+            brand,
+            category,
+            price,
+            discount
+        })
+            
+        
         res.status(202).json({
             success: true,
             message: "Product created successfully",
             productCreated
         })
-
+        
         }
 
         catch(err){
@@ -73,9 +79,6 @@ exports.createProduct = async (req, res) => {
         }
     } 
    
-    )
-    
-}
 
 exports.getProducts = async(req, res) => {
 
@@ -107,7 +110,7 @@ exports.getProductById = async(req, res) => {
 
     try{
 
-        const {prodId} = req.params;
+        const {prodId} = req.query;
         const getProdById = await product.findById(prodId)
 
         if(getProdById){
@@ -134,17 +137,56 @@ exports.updateProductById = async(req, res) => {
     
     try{
 
-        const {name, brand, category, price, discount} = req.body;
-        const {prodId} = req.params;
+        const { category, price, discount} = req.body;
+        const {prodId, adminId} = req.query;
+
+        console.log(req.query, req.body);
+
+        if(!prodId || !adminId){
+            throw new Error("Please pass product ID and admin ID")
+        }
+
+        const adminExist = await Admin.findById(adminId);
+
+        if(!adminExist){
+           throw new Error("Admin does not exist")
+        }
+        // => Shloud i add a field in schema inside image field as publicID and store ID of every image
+        // 1.should i grab the existed image's public ID => existingImgId
+        // 2.should i first delete the needed img from cloudinary using its public_id and destroy() method
+        // 3.upload new image to cloudinary with predefined method cloudFileDelete()
+
 
         // how to ask user which field he want to update
         // what if we want to update image with formidable and remove old images
-        if(!name || !brand || !category || !price || discount){
+        if( !category || !price || !discount){
             throw new Error("Please fill necessary fields")
         }
 
-        const productUpdated = await product.findByIdAndUpdate(prodId, {name, brand,
-            category, price, discount
+        const findProduct = await product.findById(prodId)
+        console.log(findProduct, findProduct.publicId);
+
+        // Grabbing the public ID of existing image of the product we want to update
+        const public_id = findProduct.publicId;
+
+        // Deleting the existing image from cloudinary to update product 
+
+        const deleteExistingImg = await cloudFileDelete(public_id)
+        console.log("Existing cloudinary image deleted", deleteExistingImg);
+
+        const imageLocalPath = req.files?.images[0]?.path;
+
+        const imageUpdate = await cloudFileUpload(imageLocalPath);
+
+        images = imageUpdate.secure_url;
+        const publicId = imageUpdate.public_id
+
+        const productUpdated = await product.findByIdAndUpdate(prodId, {
+            images,
+            publicId,
+            category,
+            price,
+            discount
         })
 
         res.status(202).json({
@@ -152,6 +194,7 @@ exports.updateProductById = async(req, res) => {
             message: "Product updated successfully",
             productUpdated
         })
+
     }
 
     catch(err){
@@ -167,9 +210,22 @@ exports.updateProductById = async(req, res) => {
 // In case we want to change the price or apply discount only on particular brand
 exports.updateProductByBrand = async(req, res) => {
 
-    try{
+    try {
 
     const {brand, price, discount} = req.body;
+
+    const {adminId} = req.query;
+
+    if(!adminId){
+        throw new Error("Please pass adminId")
+    }
+
+    const adminExist = await Admin.findById(adminId);
+
+    if(!adminExist){
+        throw new Error("Admin does not exist")
+    }
+
 
     if(!brand || !price || !discount){
         throw new Error("Please fill all the fields if you want to update the product")
@@ -182,6 +238,7 @@ exports.updateProductByBrand = async(req, res) => {
         message: "Product updated successfully :)",
         productUpdated
     })
+
     }
 
     catch(err){
@@ -195,28 +252,43 @@ exports.updateProductByBrand = async(req, res) => {
 
 exports.deleteProduct = async(req, res) =>{
 
-    try{
+    try {
 
-    const {prodId} = req.params;
-    const {img} = req.params.filename;
+    const {prodId, adminId} = req.query;
     
     if(!prodId){
         throw new Error("Sorry Product ID not found")
     }
-    
-    const imgDelete = await s3DeleteFile({
-        bucketName: config.S3_BUCKET_NAME,
-        key: `product/${prodId}/${img}.png`,
-    })
 
+    if(!adminId){
+        throw new Error("Please pass adminId")
+    }
+
+    const adminExist = await Admin.findById(adminId);
+
+    if(!adminExist){
+        throw new Error("Admin does not exist")
+    }
+
+    // Grabbing the product ID and finding the product to get public_id of the image of product
+
+    const findProduct = await product.findById(prodId);
+    console.log(findProduct);
+
+    const public_id = findProduct.publicId;
+
+    // Deleting the product image from cloudinary by calling predefined method 
+
+    const deleteProductImgs = await cloudFileDelete(public_id)
+    console.log("Deleted images are", deleteProductImgs);
     
-    const productDeleted = await product.findByIdAndDelete({prodId})
+    const productDeleted = await product.findByIdAndDelete(prodId)
 
     res.status(202).json({
         success: true,
         message: "Product deleted successfully :)",
         productDeleted,
-        imgDelete
+        deleteProductImgs
     })
 }
 
@@ -235,13 +307,19 @@ exports.searchProduct = async(req, res) => {
     try{
         const {search} = req.body;
 
-        const searchProduct = await product.find({$or: {name: new RegExp(search, 'i')} ,$or: {brand: new RegExp(search, 'i')}})
-        // const searchpro = await product.aggregate({$search: {name: regexp(search, 'i')}})
-        console.log(searchProduct);
+        console.log("req. body",search);
 
-        const filteredProd = searchProduct.filter(product)
+        const searchProduct = await product.find({$or:[{name: new RegExp(search, 'i')} , {brand: new RegExp(search, 'i')}]})
+        
+        console.log("search product", searchProduct);
+
+        const filteredProd = await searchProduct.filter(product)
+
         console.log(filteredProd + "product Filtered");
 
+        if(filteredProd == " "){
+            throw new Error("No product found")
+        }
 
         res.status(202).json({
             success: true,
@@ -254,7 +332,7 @@ exports.searchProduct = async(req, res) => {
     catch(err){
 
         res.status(404).json({
-            success: true,
+            success: false,
             message: err.message
         })
     }
