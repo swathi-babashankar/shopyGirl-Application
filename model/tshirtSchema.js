@@ -1,6 +1,7 @@
+const { url } = require("inspector");
 const mongoose = require("mongoose");
 
-const tshirtSchema = mongoose.Schema({
+const tshirtSchema = new mongoose.Schema({
 
     name: {
         type: String,
@@ -15,20 +16,28 @@ const tshirtSchema = mongoose.Schema({
 
     category: {
         type: String,
-        enum: ["sports wear","cropped", "Full Sleeve", "half sleeve", "hoodie", "sleeveless" ],
+        enum: ["Sports wear","Cropped", "Full Sleeve", "Half sleeve", "Hoodie", "Sleeveless" ],
         required: true
     },
 
     price: {
         type: Number,
-        enum: "Rupees"
+        required: true
+    },
+
+    description: {
+        type: String
+
     },
 
     images: [{
-            secure_url: {
-                type: String,
-                required: true
-            }
+        type: String,
+        required: true,
+    }],
+
+    publicId: [{
+        type: String,
+        required: true
     }],
 
     discount: {
@@ -38,7 +47,7 @@ const tshirtSchema = mongoose.Schema({
 
 },
 {
-    timeStamps: true
+    timestamps: true
 }
 )
 
