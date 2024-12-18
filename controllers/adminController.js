@@ -6,10 +6,12 @@ const bcrypt = require("bcrypt");
 const  jwt = require("jsonwebtoken");
 
 
-exports.setCookieOption = {
+ const setCookieOption = {
     expires: new Date(Date.now(2*24*60*60*1000)),
-    httpOnly: true
-}
+    httpOnly: true,
+    secure: true,
+    path: "/"
+};
 
 function generateNewToken(admin){
     return jwt.sign({
@@ -20,7 +22,7 @@ function generateNewToken(admin){
             expiresIn: config.ADMIN_JWT_EXPIRY
         }
     )
-}
+};
 
 exports.createAdmin = async (req, res) =>{
 
@@ -68,7 +70,8 @@ exports.createAdmin = async (req, res) =>{
         adminToken = createAdmin.adminToken;
         createAdmin.password = undefined;
 
-        res.cookie("adminToken", adminToken, this.setCookieOption)
+        res.cookie("adminToken", adminToken, {setCookieOption})
+        res.setHeader("authorization", adminToken)
 
         res.status(202).json({
             success: true,
@@ -88,12 +91,36 @@ exports.createAdmin = async (req, res) =>{
     }
 }
 
+exports.getAdminAccount = async (req, res) => {
+
+    try {
+
+        const { adminId } = req.query;
+
+        const adminAccount = await Admin.findById(adminId);
+
+        res.status(202).json({
+            success: true,
+            message: "Here is your Account Information",
+            adminAccount
+        })
+    }
+
+    catch(e) {
+
+        res.status(400).json({
+            success: false,
+            message: e.message
+        })
+    }
+}
+
 exports.editAdmin = async (req, res) => {
 
     try{
 
         const {id} = req.query;
-        let {email, password, newPswd, confirmPaswd} = req.body;
+        let {email, password, newPswd, confirmPaswd, phoneNo} = req.body;
         // const {adminToken} = req.cookies;
 
       const newId =  ObjectId.createFromHexString(id)
@@ -131,7 +158,7 @@ exports.editAdmin = async (req, res) => {
 
         const encryPswd = (await bcrypt.hash(password, 15)).toString()
 
-        const updatedDetails = await Admin.findByIdAndUpdate(newId, {email, password: encryPswd});
+        const updatedDetails = await Admin.findByIdAndUpdate(newId, {email, password: encryPswd, phoneNo});
 
         // Regenerating the token
 
@@ -194,7 +221,8 @@ exports.adminLogin = async (req, res) => {
             adminToken = adminLoggedIn.adminToken;
             adminLoggedIn.password = undefined;
 
-            res.cookie("adminToken", adminToken, this.setCookieOption);
+            res.cookie("adminToken", adminToken,  {setCookieOption});
+            // res.setHeader("authorization", adminToken)
 
             res.status(202).json({
                 success: true,

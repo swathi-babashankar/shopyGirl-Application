@@ -150,24 +150,38 @@ exports.deleteExpiredCoupon = async (req, res) => {
 
     try{
 
-        const {couponId} = req.query;
-        const {validTill} = req.body;
-        const today = Date()
+        const {adminId} = req.query;
+        // const {validTill} = req.body;
 
-        const newId =  ObjectId.createFromHexString(couponId)
+        // const today = Date()
+        let date = new Date()
+
+        // let dateAndTime = date.getFullYear();
+        console.log(date);
+        // date.
+
+        // const newId =  ObjectId.createFromHexString(couponId)
         
         // const {couponValid} = Coupon
+        // get all the coupons 
+        // find the expiry date
+        // compare whether the expiry date is less than current date
+        // delete the coupon if condition is true
 
-        if(!couponId){
-            throw new Error("Please pass your coupon ID")
-        }
+        const deleteExpCoupon = await Coupon.deleteMany({validTill: {$lt: date}})
 
-        if(!validTill){
-            throw new Error("Please enter the date coupon expires")
-        }
+        console.log("expired couponsss",deleteExpCoupon);
+        
+        // if(!couponId){
+        //     throw new Error("Please pass your coupon ID")
+        // }
 
-        if(validTill >= today){
-            const deleteExpCoupon = await Coupon.findByIdAndDelete(newId);
+        // if(!validTill){
+        //     throw new Error("Please enter the date coupon expires")
+        // }
+
+        // if(validTill >= today){
+        //     const deleteExpCoupon = await Coupon.findByIdAndDelete(newId);
 
             res.status(202).json({
                 success: true,
@@ -175,7 +189,7 @@ exports.deleteExpiredCoupon = async (req, res) => {
                 deleteExpCoupon
             })
 
-        }
+        
     }
 
     catch(err){

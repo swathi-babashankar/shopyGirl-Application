@@ -7,11 +7,17 @@ exports.createProduct = async (req, res) => {
 
    try {
 
-    const {name, brand, category, price, discount} = req.body;
+    const {name, brand, category, description, price, discount} = req.body;
+    const {sizeAndStock} = req.body;
     console.log(req.body, name);
     const {adminId} = req.query;
 
-    if(!name || !brand || !category || !price) {
+    
+   let parsed =  JSON.parse('['+ sizeAndStock + ']')
+   console.log("parsed is", parsed);
+//    console.log(parsed);
+
+    if(!name || !brand || !category || !price || !sizeAndStock) {
 
         throw new Error("Please fill all the necessary fields")
     }
@@ -26,10 +32,10 @@ exports.createProduct = async (req, res) => {
         throw new Error("Admin does not exist")
     }
 
-    console.log("req.files is",req.files);
-    const imageLocalPath = req.files?.images[0]?.path;
+    console.log("req.files is",req.file.path);
+    const imageLocalPath = req.file?.path;
 
-    console.log(imageLocalPath);
+    console.log(imageLocalPath)
     
     if(!imageLocalPath){
         throw new Error("Sorry! We could not get the image path")
@@ -57,7 +63,9 @@ exports.createProduct = async (req, res) => {
             name, 
             brand,
             category,
+            description,
             price,
+            sizeAndStock: parsed,
             discount
         })
             
@@ -113,13 +121,13 @@ exports.getProductById = async(req, res) => {
         const {prodId} = req.query;
         const getProdById = await product.findById(prodId)
 
-        if(getProdById){
+        // if(getProdById){
             res.status(202).json({
                 success: true,
                 message: "Products fetched successfully using productID",
                 getProdById
             })
-        }
+        // 
 
     }
 
@@ -170,16 +178,22 @@ exports.updateProductById = async(req, res) => {
         const public_id = findProduct.publicId;
 
         // Deleting the existing image from cloudinary to update product 
+        
 
+        // if(imageLocalPath){
         const deleteExistingImg = await cloudFileDelete(public_id)
         console.log("Existing cloudinary image deleted", deleteExistingImg);
 
-        const imageLocalPath = req.files?.images[0]?.path;
+        console.log(req.file);
+        const imageLocalPath = req.file?.path;
+
+        console.log(imageLocalPath);
 
         const imageUpdate = await cloudFileUpload(imageLocalPath);
 
         images = imageUpdate.secure_url;
         const publicId = imageUpdate.public_id
+        // }
 
         const productUpdated = await product.findByIdAndUpdate(prodId, {
             images,
@@ -302,20 +316,21 @@ catch(err){
 
 }
 
-exports.searchProduct = async(req, res) => {
+exports.searchProduct = async (req, res) => {
 
     try{
         const {search} = req.body;
 
         console.log("req. body",search);
+        const regex = new RegExp(search, 'i')
 
-        const searchProduct = await product.find({$or:[{name: new RegExp(search, 'i')} , {brand: new RegExp(search, 'i')}]})
+        const searchProduct = await product.find({$or:[{name: {$in: [regex]}} , {brand: {$in: [regex]}}]})
         
         console.log("search product", searchProduct);
 
         const filteredProd = await searchProduct.filter(product)
 
-        console.log(filteredProd + "product Filtered");
+        console.log("product Filtered" + filteredProd );
 
         if(filteredProd == " "){
             throw new Error("No product found")
@@ -325,7 +340,7 @@ exports.searchProduct = async(req, res) => {
             success: true,
             message: "Here is the product you searched for",
             filteredProd
-        })//
+        })
 
     }
 

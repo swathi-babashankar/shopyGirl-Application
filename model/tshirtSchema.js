@@ -1,5 +1,6 @@
 const { url } = require("inspector");
 const mongoose = require("mongoose");
+const { type } = require("os");
 
 const tshirtSchema = new mongoose.Schema({
 
@@ -18,6 +19,22 @@ const tshirtSchema = new mongoose.Schema({
         type: String,
         enum: ["Sports wear","Cropped", "Full Sleeve", "Half sleeve", "Hoodie", "Sleeveless" ],
         required: true
+    },
+
+    sizeAndStock: {
+        type: Object,
+       
+    //   s: {  
+    //     stock: {
+    //         type: Number
+    //     }
+    //     },
+
+    //   M: {
+
+
+    //   }
+        
     },
 
     price: {

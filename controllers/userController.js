@@ -5,9 +5,11 @@ const {config} = require("../config/index");
 const { ObjectId } = require("mongodb");
 
 
-exports.cookieProp = {
-    expires: new Date(Date.now(2*24*60*60*1000)),
-    httpOnly: true
+const cookieProp = {
+    expires: new Date(Date.now() + 10800000),
+    // 180,000expires: (60*60),
+    // httpOnly: true,
+    secure: true
 }
 
 
@@ -62,7 +64,7 @@ exports.createUser = async(req, res) => {
 
         // setting up the token to cookies
 
-        res.cookie("token", token, this.cookieProp)
+        res.cookie("token", token, {...cookieProp})
 
         res.status(200).json({
             success: true,
@@ -70,11 +72,9 @@ exports.createUser = async(req, res) => {
             userCreated
 
         })
-
-
     }
 
-    catch(err){
+    catch(err) {
 
         console.log(err);
         res.status(400).json({
@@ -124,6 +124,34 @@ exports.getUser = async(req, res) => {
 
     }
 
+};
+
+exports.getUserAccount = async (req, res) => {
+
+    try {
+
+        const { userId } = req.query;
+
+        if(!userId) {
+            throw new Error("Sorry we could not get your ID")
+        }
+
+        const userAccount = await user.findById(userId);
+
+        res.status(202).json({
+            success: true,
+            message: "Here is your Account Information",
+            userAccount
+        })
+    }
+
+    catch(e) {
+
+        res.status(400).json({
+            success: false,
+            message: e.message
+        })
+    }
 }
 
 exports.userLogin = async(req, res) => {
@@ -131,19 +159,20 @@ exports.userLogin = async(req, res) => {
     try{
 
         const {email, password} = req.body;
-        // const password = user.password;
+        // const password = user.password
 
         if(!email || !password){
             throw new Error("Please enter your Email and password")
         }
 
+        const userLoggedin = await user.findOne({email}).select("+password");
         const pswdValidated = await bcrypt.compare(password, userLoggedin.password);
 
         if(pswdValidated === false){
             throw new Error("Invalid EMAIL or PASSWORD. Please try again")
         }
 
-        const userLoggedin = await user.findOne({email}).select("+password");
+        
 
         if(!userLoggedin){
             throw new Error("Your credentials are invalid... Please try again")
@@ -158,7 +187,7 @@ exports.userLogin = async(req, res) => {
             token = userLoggedin.token;
 
             userLoggedin.password = undefined;
-            res.cookie("token", token, this.cookieProp)
+            res.cookie("token", token, {...cookieProp })
 
             res.status(202).json({
                 success: true,
@@ -171,7 +200,7 @@ exports.userLogin = async(req, res) => {
     }
 
     catch(err){
-        res.status(402).json({
+        res.status(400).json({
             success: false,
             message: err.message
         })
@@ -234,7 +263,7 @@ const encryPswd = (await bcrypt.hash(password, 13)).toString()
     token = userUpdated.token;
     userUpdated.password = undefined;
 
-    res.cookie("token", token, this.cookieProp)
+    res.cookie("token", token, {...cookieProp})
     res.status(202).json({
         success: true,
         message: "User credentials updated successfully",
@@ -256,8 +285,19 @@ const encryPswd = (await bcrypt.hash(password, 13)).toString()
 
 exports.userLogout = async(req, res) => {
 
-try{
+try {
 
+    const { userId } = req.query;
+
+    const userLoggedout =  await user.findByIdAndUpdate(userId, {
+        $unset: {
+            token: 1
+        },
+    },
+    {
+        new: true
+    })
+    
     res.clearCookie("token", {httpOnly: true});
 
     res.status(202).json({

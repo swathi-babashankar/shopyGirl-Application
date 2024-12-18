@@ -11,6 +11,6 @@ router.post("/createCoupon/:adminId?",adminAuth, createCoupon);
 router.get("/getCoupons", getCoupons);
 router.put("/editCoupon/:couponId?/:adminId?",adminAuth, editCoupon);
 router.delete("/deleteCoupon/:couponId?/:adminId?",adminAuth, deleteCoupon);
-router.delete("/deleteExpiredCoupon/:couponId?/:adminId?",adminAuth, deleteExpiredCoupon);
+router.delete("/deleteExpiredCoupon/:adminId?",adminAuth, deleteExpiredCoupon);
 
 module.exports = router;

@@ -1,12 +1,19 @@
 const mongoose = require("mongoose");
 const {Schema} = require("mongoose")
 
-const orderSchema = mongoose.Schema({
+const orderSchema = new mongoose.Schema({
  
     productId: {
         type: [{type: Schema.Types.ObjectId,
         ref: "cart"}],
         required: [true]
+    },
+
+    realProductId: {
+        type: [{type: Schema.Types.ObjectId,
+            ref: "tshirt"}],
+            required: [true]
+
     },
 
     userId: {
@@ -26,31 +33,39 @@ const orderSchema = mongoose.Schema({
     netPrice: {
         type: Number,
         required: true,
-       net: {
-        // chance of getting error
-         $subract: ["$couponCode.$couponPrice", "$netprice"]
-        }
+    },
+
+    name:{
+        type: String,
+        required: true
     },
 
     address: {
-       name: { type: String, required: true},
-       building: {type: String, required: true},
-       street: {type: String, required: true},
-       pincose: {type: String, required: true},
-       district: {type: String, required: true},
-       state: {type: String, required: true}
+       type: String,
+       required: true,
+    },
+
+    phoneNo:{
+        type: String,
+        required: true
 
     },
 
     quantity: {
-        type: String,
+        type: Number,
         required: [true, "Please enter the quantity of product"],
         minNumber: [1, "You should have atleast one product to place your order"]
 
     },
 
-    
+    razorpayId: {
+        type: String
+    }
 
+},
+
+{
+    timestamps: true
 });
 
 module.exports = mongoose.model("order", orderSchema);

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const {Schema} = require("mongoose")
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     name: {
         type: String,
@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema({
 
     productId: {
         type: [{type: Schema.Types.ObjectId,
-        ref: "tshirt"}]
+        ref: "cart"}],
     },
     token: {
         type: String
