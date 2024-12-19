@@ -1,0 +1,123 @@
+body{
+    background-color: #000000;
+    color: #d2cccc;
+    margin: 0px;
+    padding: 0px;
+}
+
+.acDiv{
+    width: 100vw;
+}
+
+.subCDiv{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    gap: 100px;
+    width: 85vw;
+    margin-left: 40px;
+    height: 70px;
+    padding: 18px 18px 18px;
+    box-shadow: 2px 2px #6a6868;
+}
+
+.coupCode span, .coupDisc span, .expiry span{
+    font-weight: bold;
+}
+
+.coupEdit, .coupDelete{
+   /* padding: 12px 23px 12px; */
+    background-color: transparent;
+    color: #d2cccc;
+    border: none;
+    
+}
+
+.coupDelete:active{
+    /* background-color: transparent;
+    color: #d2cccc; */
+    border: none;
+
+}
+
+@media (max-width: 1250px) {
+
+    .subCDiv {
+        font-size: 18px;
+        white-space: nowrap;
+        gap: 40px;
+    }
+
+}
+
+@media (max-width: 1150px) {
+
+    .subCDiv {
+        font-size: 16px;
+
+    }
+}
+
+@media (max-width: 1050px) {
+
+    .acDiv {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .subCDiv {
+        display: flex;
+        flex-direction: column;
+        height: 300px;
+        gap: 10px;
+        width: 300px;
+        /* position: relative; */
+        margin-left: 300px;
+        /* margin-left: 300px; */
+        
+    }
+
+}
+
+@media (max-width: 950px) {
+
+    .subCDiv {
+        margin-left: 250px;
+    }
+
+}
+
+@media (max-width: 850px) {
+
+    .subCDiv {
+        margin-left: 200px;
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    .subCDiv {
+        margin-left: 150px;
+        line-height: 0px;
+        height: 200px;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .subCDiv {
+        margin-left: 100px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .subCDiv {
+        margin-left: 70px;
+        font-size: 14px;
+        width: 250px;
+    }
+}

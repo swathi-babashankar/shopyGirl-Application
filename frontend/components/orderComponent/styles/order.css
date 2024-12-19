@@ -1,0 +1,614 @@
+
+body {
+    background-color: #000000;
+    color: #d2cccc;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+    
+}
+
+.orderDiv {
+    /* height: 100%; */
+    width: 98vw;
+    margin-top: 120px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    box-shadow: 4px 2px 2px  #4c4c4cc3;
+    /* padding: 20px 20px 20px; */
+}
+
+.logDiv{
+    width: 40vw;
+    height: 70vh;
+    margin-top: 20px;
+    /* gap: 30px; */
+    
+    
+    /* align-self: center; */
+    /* justify-self: center; */
+    /* justify-content: center; */
+}
+
+.orderLogForm{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.orderForm{
+    margin-top: 70px;
+}
+
+.orderMail{
+    padding: 15px 20px 15px;
+    border-radius: 3px;
+    background-color: transparent;
+    width: 300px;
+    color: #d2cccc;
+}
+
+.orderPswd{
+    padding: 15px 20px 15px;
+    border-radius: 3px;
+    background-color: transparent;
+    color: #d2cccc;
+    width: 300px;
+}
+
+.orderSubBtn{
+    width: 100px;
+}
+
+.noAcnt{
+    text-align: center;
+}
+
+.orderHdng{
+    text-align: center;
+    width: 60vw;
+    margin-left: 40px;
+
+}
+
+.formDiv{
+    margin-top: 10px;
+    /* width: 30vw;
+    height: 80vh;
+    margin-left: 40px;
+    padding: 20px 40px 30px; */
+    /* box-shadow: 2px 2px 2px #242424c3; */
+}
+
+.orderForm{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    position: absolute;
+    z-index: 1;
+}
+
+.orderName, .address{
+    padding: 16px 35px 16px;
+    background-color: transparent;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+}
+
+.ph, .cCode{
+    padding: 16px 35px 16px;
+    background-color: transparent;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+}
+
+/* .box{
+    width: 100px;
+    height: 100vh;
+    background-color: #242424c3;
+    padding: 5px 5px 5px ; 
+    box-shadow: 4px 2px 2px 2px  #4c4c4cc3;
+} */
+
+.pDetails{
+    width: 700px;
+    margin-right: 10px;
+    /* box-shadow: 4px 2px    #4c4c4cc3; */
+    height: 40vh;
+    
+    
+}
+
+.orderPrice span, .delChrge span, .tPayable span, .cDiscnt span{
+    color: #4c964c;
+    /* padding-left: 130px; */
+    margin-left: 70px;
+    /* text-align-last: right; */
+}
+
+.cpCode{
+    padding: 5px 10px 10px;
+    
+}
+
+.applyBtn{
+    padding: 5px 10px 10px;
+    /* width: 80px;
+    height: 50px; */
+    
+}
+
+.prodToOrder .preDiv{
+    margin-left: -1440px;
+    
+}
+
+.prodToOrder .preDiv .preProdImage{
+    width: 150px;
+    height: 150px;
+}
+
+
+.prodToOrder .preDiv .preProductDiv{
+    
+    margin-top: 130px; 
+    display: flex;
+    flex-direction: row;
+    width: 58vw;
+    height: 200px;
+    box-shadow: 4px 1px #4c4c4cc3;
+    border: 2px 2px;
+    background-color: transparent;
+    
+}
+
+.prodToOrder .preDiv .preProductDetDiv{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+
+.order-btn{
+    width: 100vw;
+    background-color: #242424c3;
+    /* padding: 5px 5px 5px ; */
+    box-shadow: 2px 2px 2px 2px #4c4c4cc3;
+    height: 80px;
+    margin-left: -1418px;
+    margin-top: 530px;
+    align-self: flex-end;
+
+}
+
+.order{
+    margin-left: 1050px;
+    background-color: #046a04;
+    margin-top: 17px;
+    width: 400px;
+    height: 50px;
+    color: #d2cccc;
+    /* width: 95vw; */
+}
+
+/* .order:hover{
+    background-color: #d2cccc;
+    color: #242424c3;
+    border: 2px 2px;
+} */
+
+.prodToOrder{
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+    /* justify-content: center; */
+    /* gap: 300px; */
+    align-items: center;
+}
+
+.prodToOrder .orderBtnDiv , .prodToOrder .cartOrderBtn, .prodToOrder .amtDiv{
+    display: none;
+}
+
+.prodToOrder .pageCart{
+    position: relative;
+    width: 50vw;
+    margin-left: -1190px;
+    /* margin-right: 800px; */
+}
+
+.amtDetls{
+    margin-right: -280px;
+}
+
+/* .orderForm::backdrop{
+    background: rgba(123, 114, 114, 0.5);
+    display: none;
+    z-index: 999;
+    opacity: 0.5;
+
+
+} */
+
+
+
+#addressBox{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    position: fixed;
+    z-index: 2;
+    background: #1c1b1b;
+    border-radius: 0.5rem;
+    margin-top: 50px;
+
+}
+
+.closeBtn{
+    width: 5px;
+    border: none;
+    background: none;
+    text-align: center;
+    align-self: flex-end;
+}
+
+dialog #addressBox::backdrop {
+    background-color: rgba(102, 97, 97, 0.5);
+    /* z-index: 2; */
+   
+}
+
+
+@media (max-width: 1500px) {
+
+
+    .order-btn{
+        justify-content: flex-end;
+        display: flex;
+        
+    }
+
+    .order{
+        /* margin-right: 60px; */
+        position: relative;
+    }
+
+    .prodToOrder .pageCart{
+        margin-left: -1100px;
+        
+    }
+
+    .amtDetls{
+        position: relative;
+        margin-right: -230px;
+        
+    }
+
+    .prodToOrder .preDiv{
+        margin-left: -1350px;
+    }
+
+
+}
+
+@media (max-width: 1350px) {
+
+    .amtDetls{
+        margin-right: -160px;
+    }
+
+    .prodToOrder .pageCart{
+        margin-left: -1000px;
+    }
+
+    .prodToOrder .preDiv{
+        margin-left: -1250px;
+    }
+
+    .order-btn{
+        justify-content: flex-end;
+    }
+    .order{
+        margin-right: 40px;
+        width: 300px;
+        padding: 10px 10px 10px;
+        
+    }
+}
+
+@media (max-width: 1250px) {
+
+    .amtDetls{
+        margin-right: -120px;
+    }
+
+    .prodToOrder .pageCart{
+        margin-left: -950px;
+    }
+
+    .prodToOrder .preDiv{
+        margin-left: -1170px;
+    }
+
+    
+
+}
+
+@media (max-height: 1200px) {
+
+    .orderDiv{
+        margin-top: 250px;
+    }
+
+
+}
+
+@media (max-width: 1170px) {
+
+    .amtDetls {
+        margin-right: -80px;
+    }
+
+    .amtDetls .cpCode{
+        width: 70px;
+    }
+
+    .prodToOrder .preDiv{
+        margin-left: -1100px;
+    }
+
+    .prodToOrder .preDiv .preProductDetDiv{
+        font-size: 14px;
+        gap: 10px;
+    }
+
+    .prodToOrder .preDiv .preProductDetDiv .qty{
+        margin-top: 15px;
+    }
+
+
+
+}
+
+@media (max-width: 1020px) {
+
+    .amtDetls {
+        margin-right: -40px;
+    }
+
+    .prodToOrder .pageCart{
+        margin-left: -840px;
+    }
+
+    .prodToOrder .preDiv{
+        margin-left: -1070px;
+        white-space: nowrap;
+        font-size: 14px;
+        gap: 10px;
+    }
+
+    .prodToOrder .preDiv .preProductDetDiv{
+        font-size: 14px;
+    }
+    
+
+
+}
+
+@media (max-width: 980px) {
+
+    .amtDetls {
+        margin-right: 20px;
+    }
+
+    .prodToOrder .pageCart{
+        margin-left: -750px;
+    }
+
+    .prodToOrder .preDiv{
+        margin-left: -970px;
+        font-size: 12px;
+    }
+
+}
+
+@media (max-width: 920px) {
+
+    .amtDetls {
+        margin-right: 60px;
+    }
+
+    .prodToOrder .pageCart{
+        margin-left: -730px;
+    }
+
+    .prodToOrder .preDiv{
+        margin-left: -900px;
+        
+    }
+
+}
+
+@media( max-width: 880px) {
+
+    
+
+    .amtDetls {
+        margin-right: 100px;
+    }
+
+    .prodToOrder .pageCart{
+        margin-left: -680px;
+    }
+
+}
+
+@media (max-width: 840px) {
+
+    .orderDiv{
+        display: flex;
+        flex-direction: column;
+        margin-left: 80px;
+        height: auto;
+        width: 70vw;
+    }
+
+    .prodToOrder .preDiv{
+        margin-left: -170px;
+        margin-top: -200px;
+        margin-bottom: 60px;
+        
+        
+    }
+
+    .prodToOrder .pageCart{
+        margin-left: 20px;
+        margin-top: -120px;
+    }
+
+    .amtDetls{
+        margin-top: -250px;
+        margin-left: 50px;
+        box-shadow: 4px 4px #242424c3;
+        width: 60vw;
+        padding-bottom: 40px ;
+    }
+
+    .order-btn{
+        margin-top: -80px;
+        margin-left: 50px;
+        width: 60vw;
+        align-self: flex-start;
+    }
+
+    .prodToOrder .preDiv .preProductDetDiv{
+        display: flex;
+        flex-direction: column;
+        margin-left: 45px;
+        gap: 0px;
+        width: 56vw;
+    }
+
+
+}
+
+@media (max-width: 790px) {
+
+    .amtDetls{
+        margin-left: 0px;
+        /* box-shadow: none; */
+        width: 67vw;
+    }
+
+    .amtDetls .pDetails{
+        box-shadow: none;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .amtDetls {
+        width: 70vw;
+        /* margin-top: 0px; */
+    }
+
+    .logDiv{
+        align-self: center;
+        width: 40vw;
+        margin-left: -100px;
+        margin-bottom: -100px;
+    }
+
+    .logDiv .orderMail, .logDiv .orderPswd{
+        width: 58vw;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .prodToOrder .preDiv .preProductDiv{
+        margin-left: 20px;
+    }
+
+    
+    .prodToOrder .pageCart {
+        margin-top: -120px;
+    }
+
+    /* .orderForm{
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        align-content: center;
+        
+    } */
+
+    .logDiv{
+        align-items: center
+    }
+
+    #addressBox{
+        justify-content: center;
+        
+        width: 200px;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .prodToOrder .preDiv .preProductDiv .preProductName, .preBrand {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 80px;
+        white-space: nowrap;
+    }
+
+    .prodToOrder .preDiv .preProductDiv{
+        margin-left: 0px;
+    }
+
+    #addressBox {
+        justify-content: center;
+        margin-left: 90px;
+        /* width: 200px; */
+        
+    }
+
+    .orderDiv{
+        box-shadow: none;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .prodToOrder .preDiv .preProductDiv .preProdImage{
+        margin-left: -50px;
+    }
+
+    .prodToOrder .preDiv .preProductDiv{
+        margin-left: 0px;
+    }
+
+    .order-btn{
+        margin-left: 40px;
+    }
+
+
+
+}
+
+

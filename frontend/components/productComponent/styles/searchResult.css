@@ -1,0 +1,51 @@
+
+.resultDiv{
+    padding: 15px  15px 10px;
+    /* padding-bottom: 45px ; */
+    background-color: #242424c3;
+    z-index: 2;
+    position: relative;
+    
+}
+
+.resultName{
+    padding: 5px 5px 5px 5px;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    color: #e08c8c;
+    font-size: 16px;
+}
+
+@media (max-width: 650px) {
+
+}
+
+@media (max-width: 550px) {
+
+    .resultDiv {
+        z-index: 2;
+        /* opacity: 0.5%; */
+        position: relative;
+    }
+
+}
+
+@media (max-width: 490px) {
+
+    .resultDiv{
+        width: 200px;
+    }
+    
+}
+
+@media (max-width: 395px) {
+
+    .resultDiv{
+        width: 150px;
+    }
+
+    .resultName {
+        font-size: 13px;
+        width: 100px;
+    }
+}

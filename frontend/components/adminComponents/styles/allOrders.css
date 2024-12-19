@@ -1,0 +1,68 @@
+
+.odMain-div{
+    height: auto;
+}
+
+
+.odHdng{
+    text-align: center;
+}
+
+.view-div{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    height: 20vh;
+    width: 900px;
+    box-shadow: 3px 2px #393838bb;
+    border-radius: 0.5rem;
+    /* width: 800px; */
+}
+
+
+
+ div #uDetails:active{
+    background-color: blue;
+}
+
+.uDetBtn{
+    width: 180px;
+    height: 50px;
+    margin-top: 10px;
+    margin-right: 40px;
+}
+
+@media (max-width: 1350px) {
+
+    .view-div {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .view-div {
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        height: 50vh;
+        width: 400px ;
+    } 
+
+     .oName, .oPrice, .uDetBtn, .urSize, .urQty{
+        margin-top: -20px;
+        margin-left: 40px;
+    }
+
+    
+}
+
+@media (max-width: 450px) {
+
+    .view-div{
+        font-size: 13px;
+        width: 250px;
+        height: 300px;
+    }
+
+}

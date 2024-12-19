@@ -1,0 +1,97 @@
+
+.profileDiv{
+    width: 100vw;
+    margin-top: 120px;
+}
+
+
+
+.infoDiv{
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    height: 65vh;
+    gap: 30px;
+    padding: 30px 30px;
+    box-shadow: 4px 4px 4px  #2e2e2e;
+    justify-content: center;
+    align-items: center;
+    margin-left: 250px;
+    
+}
+
+@media (max-width: 950px) {
+
+    .infoDiv{
+        margin-left: 150px;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .infoDiv input{
+        padding: 20px 20px 20px;
+     }
+
+}
+
+@media (max-width: 750px) {
+
+    .infoDiv input{
+        padding: 10px 10px 10px;
+     }
+
+}
+
+@media (max-width: 600px) {
+
+    .infoDiv{
+        margin-left: 80px;
+        align-items: center;
+        
+    }
+
+    .adMail{
+        margin-left: 25px;
+    }
+
+    .labelName{
+        margin-left: 15px;
+    }
+
+
+}
+
+
+@media (max-width: 500px) {
+    .infoDiv .adPswd{
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .adPswd, .phLabel{
+        margin-left: 10px;
+    }   
+    
+}
+
+@media (max-width: 415px) and (max-height: 920px) {
+
+    .infoDiv .adPswd, .infoDiv .adMail{
+        margin-left: 10px;
+    }
+
+    .profileDiv{
+        margin-top: 140px;
+    }
+}
+@media (max-width: 320px) {
+
+    .infoDiv {
+        margin-left: 40px;
+        align-items: center;
+        
+    }
+}

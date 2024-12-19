@@ -1,0 +1,40 @@
+body{
+    background-color: #000000;
+    margin: 0px;
+    padding: 0px;
+}
+
+.main-div{
+    width: 100vw;
+}
+
+.adres, .phoneNo{
+    padding: 15px 25px 20px ;
+    background-color: transparent;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+}
+
+.qty{
+    padding: 7px 10px 10px ;
+    background-color: transparent;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+}
+
+.saveBtn{
+    padding: 10px 10px 15px;
+    background-color: transparent;
+    color: #d2cccc;
+    border: 2px 2px;
+    border-color: #6a6868;
+    border-radius: 8px;
+}
+
+.saveBtn:hover{
+    background-color: #d2cccc;
+    color: #242424c3;
+    border: 2px 2px;
+}

@@ -1,0 +1,265 @@
+
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #000000;
+    font-size: 18px;
+    /* height: 100vh; */
+}
+
+.main-div{
+    width: 100vw;
+    text-align: center;
+    
+   
+}
+
+.main-div .form-div{
+    margin-top:180px;
+}
+
+.form-div{
+    margin-top: 80px;
+    width: 30vw;
+    height: 50vh;
+    margin-left: 430px;
+    padding: 20px 20px 30px;
+    box-shadow: 2px 2px 2px #d2cccc;
+}
+
+.logForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    
+    gap: 40px;
+}
+
+.logForm:hover{
+    background-color: transparent;  
+}
+
+ .email{
+    padding: 15px 30px 20px ;
+    background-color: transparent;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+}
+
+.email:hover{
+    background-color: #d2cccc;
+    border-color: #242424c3;
+    color: #242424c3;
+
+}
+
+.pswd{
+    padding: 15px 30px 20px ;
+    background-color: transparent ;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+    
+}
+
+.pswd:hover{
+    background-color: #d2cccc;
+    border-color: #242424c3;
+    color: #242424c3;
+}
+
+.subBtn{
+    padding: 10px 10px 15px;
+    background-color: transparent;
+    color: #d2cccc;
+    border: 2px 2px;
+    border-color: #6a6868;
+    border-radius: 8px;
+}
+
+.subBtn:hover{
+    background-color: #d2cccc;
+    color: #242424c3;
+    border: 2px 2px;
+}
+
+.span{
+    color: #0a7f9f;
+}
+
+@media (max-width: 1050px) {
+
+    .form-div{
+        margin-left: 330px;
+        
+    }
+
+}
+
+
+
+@media (max-width: 850px) {
+
+    .form-div{
+        margin-left: 230px;
+        box-shadow: none;
+        
+    }
+
+}
+
+
+
+@media (max-width: 600px) {
+
+    .form-div {
+        font-size: 16px;
+        margin-left: 170px;
+    }
+
+
+}
+
+@media (max-width: 550px) {
+
+   .logForm .email{
+        margin-left: 0px;
+    }
+
+    .logForm .pswd {
+        width: 104px;
+    }
+
+
+}
+
+@media (max-width: 520px) {
+    .logForm .pswd {
+        width: 96px;
+    }
+
+
+}
+
+@media (max-width: 500px) {
+
+    .logForm .pswd{
+        margin-left: 0px;
+    }
+
+    .form-div .hdng{
+        margin-left: -50px;
+    }
+
+    .form-div{
+        height: 100px;
+        margin-top: -30px;
+    }
+
+    .form-div h4{
+        margin-left: 0px;
+        width: 150px;
+    }
+
+    .subBtn{
+        width: 140px;
+        margin-left: -30px;
+    }
+}
+
+@media(max-width: 490px) {
+    
+    .logForm .pswd {
+        width: 90px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .form-div {
+        margin-left: 150px;
+    }
+
+    .form-div .hdng{
+        margin-top: -80px;
+    }
+
+    .logForm , .form-div h4{
+        margin-left: -30px;
+    }
+
+    .logForm .pswd {
+        width: 95px;
+    }
+
+
+
+    
+}
+
+@media (max-width: 400px) {
+
+    .form-div {
+        margin-left: 130px;
+        margin-top: -40px;
+        height: 30vh;
+    }
+
+    
+}
+
+@media(max-width: 392px) {
+    
+    .logForm .pswd {
+        width: 90px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .form-div {
+        margin-top: 30px;
+
+    }
+
+    .logForm .email{
+        margin-top: -30px;
+    }
+}
+
+@media(max-width: 330px) {
+
+    .form-div {
+        margin-left: 100px;
+        box-shadow: none;
+        font-size: 14px;
+    }
+
+    .form-div .hdng{
+        margin-left: -30px;
+    }
+
+    .form-div h4{
+        margin-left: -30px;
+    }
+}
+
+@media screen and (max-height: 1366px) {
+
+    .form-div{
+        height: 30vh;
+        margin-top: 220px;
+    }
+
+}
+
+@media (max-height: 1000px) {
+
+    .form-div{
+        height: 500px;
+        /* margin-top: 220px; */
+    }
+}
+

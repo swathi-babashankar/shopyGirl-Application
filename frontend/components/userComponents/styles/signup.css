@@ -1,0 +1,160 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    height: auto;
+    background-color: #000000;
+    color: #d2cccc;
+    /* height: 100vh; */
+}
+
+.form-div{
+    width: 30vw;
+    height: 70vh;
+    box-shadow: 2px 2px 2px 1px #6a6868;
+    
+}
+
+.hdng{
+    text-align: center;
+    color: #d2cccc;
+    /* font-family:Arial,  */
+}
+
+.signup{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* .name .phoneNo .email .pswd{
+    padding: 30 15 30;
+    border: 1px #6a6868;
+    background-color: transparent;
+} */
+
+.email, .pswd{
+    padding: 15px 30px 20px ;
+    background-color: transparent;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+}
+
+.name, .phoneNo{
+    padding: 15px 30px 20px ;
+    background-color: transparent;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+}
+
+.name:hover, .phoneNo:hover, .email:hover, .pswd:hover{
+    background-color: #d2cccc;
+    border-color: #242424c3;
+    color: #242424c3;
+}
+
+
+.subBtn{
+    padding: 10px 10px 15px;
+    background-color: transparent;
+    color: #d2cccc;
+    border: 2px 2px;
+    border-color: #6a6868;
+    border-radius: 8px;
+
+}
+
+@media (max-height: 1366px) {
+
+    .form-div{
+        height: 50vh;
+        /* padding-top: 330px; */
+        
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    .form-div {
+        align-content: center;
+        
+    }
+
+    .signup{
+        flex-wrap: nowrap;
+    }
+
+    .hdng{
+        font-size: 23px;
+    }
+    
+}
+
+@media (max-width: 650px) {
+
+    .form-div {
+        margin-left: 120px;
+    }
+
+    
+}
+
+@media( max-width: 550px) {
+
+    .signup .email {
+        margin-left: 0px;
+    }
+
+    .signup .pswd{
+        width: 104px;
+    }
+
+    .signup .hdng{
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .pswd, .subBtn{
+        margin-left: 0px;
+    }
+
+    .signup .pswd{
+        width: 90px;
+    }
+}
+
+@media(max-width: 470px) {
+    .signup .pswd{
+        width: 85px;
+    }
+}
+
+@media (max-width: 416px) {
+
+    .signup .name, .phoneNo, .signup .pswd , .signup .email{
+       width: 80px;
+    }
+
+    .signup{
+        margin-left: -50px;
+    }
+}
+
+
+
+@media (max-height: 1000px) {
+   
+
+    .form-div{
+        height: 70vh;
+        margin-top: 50px;
+        /* width: 40vw; */
+    }
+
+    
+}

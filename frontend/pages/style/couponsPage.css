@@ -1,0 +1,129 @@
+
+
+.cpnsPageHdng {
+    text-align: center;
+}
+
+.cpnsPage{
+ align-items: center;
+ height: auto;
+ width: 100vw;
+ margin-top: 180px;
+
+}
+
+.cPageDiv{
+    margin-left: 150px;
+    /* align-items: center; */
+}
+
+
+
+@media (max-width: 950px)  {
+
+    .cPageDiv{
+        
+        align-self: center;
+        justify-self: center;
+        justify-items: center;
+        /* white-space: nowrap; */
+        
+    }
+
+    .cpnsPage{
+        height: 100%;
+    }
+}
+
+@media(max-width: 875px){
+
+    .cpnsPage{
+        /* justify-content: center; */
+        /* align-items: center; */
+        /* justify-items: center; */
+        align-content: center;
+        /* align-self: center; */
+        /* justify-self: center; */
+    }
+
+    .cPageDiv{
+        justify-content: center;
+        align-content: center;
+        align-self: center;
+        justify-self: center;
+    }
+    
+    .cpnsPageHdng{
+        font-size: 18px;
+        /* position: absolute; */
+        /* text-align: center; */
+        margin-left: -250px;
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    .cPageDiv {
+        align-content: start;
+    }
+
+    .cpnsPageHdng{
+        /* text-align: left; */
+        margin-left: -150px
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .cpnsPageHdng {
+        margin-left: -80px;
+        /* margin-left: -10px; */
+        /* align-self: center; */
+    }
+
+
+}
+
+@media(max-width: 600px) {
+
+    .cpnsPageHdng{
+        margin-left: -20px;
+    }
+
+}
+
+@media (max-width: 520px) {
+
+    .cPageDiv{
+        margin-left: -20px;
+    }
+
+}
+
+
+
+@media (max-width: 450px) {
+
+    .cPageDiv{
+        margin-left: 50px;
+    }
+
+    .cpnsPageHdng{
+        margin-top: -200px;
+    }
+
+    .cpnsPage{
+        height: auto;
+    }
+}
+
+@media (max-height: 1000px) {
+    
+    .cpnsPageHdng{
+        margin-top: 30px;
+    }
+
+
+}

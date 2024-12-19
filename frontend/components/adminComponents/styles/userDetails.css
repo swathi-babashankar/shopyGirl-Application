@@ -1,0 +1,21 @@
+
+
+#uMainDiv {
+    height: 300px;
+    width: 300px;
+    background-color: #302e2e;
+    border-radius: 1rem;
+    padding: 15px 15px 15px;
+    position: absolute;
+    align-content: center;
+    margin-left: -620px;
+}
+
+@media (max-width: 1050px) {
+
+    #uMainDiv {
+        margin-left: 20px;
+        margin-top: -200px;
+    }
+
+}

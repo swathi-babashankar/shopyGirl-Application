@@ -1,0 +1,175 @@
+body{
+    background-color: #000000;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    
+    
+}
+
+.cpMainDiv{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+   /* height: 100vh; */
+    margin-bottom: 200px;
+}
+
+.emptyCart{
+    text-align: center;
+    margin: 300px;
+    font-family: Arial, Helvetica, sans-serif;
+    /* height: 100vh; */
+}
+
+.cartPageDiv{
+    display: flex;
+    flex-direction: column;
+    /* gap: 20px; */
+    width: 65vw;
+    
+    margin-top: 100px;
+    margin-left: 40px;
+    /* flex-wrap: wrap; */
+    /* margin-top: 0px; */
+}
+
+.orderBtnDiv{
+    margin-top: -50px;
+    width: 60vw;
+    height: 100px;
+    box-shadow: 2px 2px 2px 2px #4c4c4cc3;
+    background-color: #242424c3;
+}
+
+.cartOrderBtn{
+    margin-left: 600px;
+    background-color: #046a04;
+    margin-top: 30px;
+    width: 300px;
+    height: 50px;
+    color: #d2cccc;
+}
+
+@media (max-width: 1500px) {
+
+    .cartOrderBtn {
+        position: relative;
+        right: 70px;
+        
+    }
+
+}
+
+@media (max-width: 1400px) {
+
+    .cartOrderBtn{
+        right: 120px;
+    }
+}
+
+@media (max-width: 1300px) {
+
+    .cartOrderBtn{
+        right: 170px
+
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .cartOrderBtn{
+        right: 240px
+
+    }
+
+}
+
+@media (max-width: 1100px){
+
+    .cartOrderBtn{
+        right: 340px
+
+    }
+
+}
+
+@media (max-width: 950px) {
+
+    .cartOrderBtn{
+        right: 390px
+
+    }
+}
+
+@media (max-width: 850px) {
+
+    .cartOrderBtn {
+        right: 430px
+
+    }
+
+}
+
+@media (max-width: 790px) {
+
+    .cartOrderBtn {
+        right: 480px;
+
+    }
+
+    .cpMainDiv{
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .cartOrderBtn {
+        right: 530px;
+
+    }
+
+    .emptyCart{
+        width: 200px;
+        font-size: 19px;
+    }
+
+}
+
+@media (max-width: 620px) {
+
+    .cartOrderBtn {
+        right: 580px;
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .cartOrderBtn {
+        width: 130px;
+        font-size: 12px;
+        right: 540px;
+        height: 30px;
+
+    }
+
+    .cpMainDiv .emptyCart {
+        text-align: center;
+        margin: 200px;
+    }
+
+}
+
+@media (max-width: 415px) {
+
+    .cpMainDiv .emptyCart{
+        margin: 100px 100px;
+    }
+
+    
+}

@@ -1,0 +1,42 @@
+body{
+    background-color: #000000;
+    margin: 0px;
+    padding: 0px;
+}
+
+.main-div{
+    width: 100vw;
+}
+
+.logForm{
+    margin-top: 70px;
+}
+
+.email, .pswd, .secret{
+    padding: 15px 30px 20px ;
+    background-color: transparent;
+    border-color: #6a6868;
+    color: #d2cccc;
+    border-radius: 8px;
+}
+
+.email:hover, .pswd:hover, .secret:hover{
+    background-color: #d2cccc;
+    border-color: #242424c3;
+    color: #242424c3;
+}
+
+.subBtn{
+    padding: 10px 10px 15px;
+    background-color: transparent;
+    color: #d2cccc;
+    border: 2px 2px ;
+    border-color:  #6a6868;
+    border-radius: 8px;
+}
+
+.subBtn:hover{
+    background-color: #d2cccc;
+    color: #242424c3;
+    border: 2px 2px;
+}

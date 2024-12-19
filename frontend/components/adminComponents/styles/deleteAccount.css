@@ -1,0 +1,124 @@
+
+.delDiv{
+    width: 100vw;
+}
+
+.pageHdng{
+    /* font-family: ; */
+    font-weight: 600;
+    text-align: center;
+    color: #ff6347;
+    margin-top: -10px;
+}
+.secDiv{
+    margin-top: -40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 700px;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 30px 30px;
+    box-shadow: 1px 2px #6a6868;
+    margin-left: 350px;
+}
+
+.adMail{
+    margin-left: 25px;
+}
+
+.deleteAcc{
+    color: #ff6347;
+    width: 250px;
+    margin-left: 80px;
+}
+
+.noImg{
+    margin-top: -30px; 
+    margin-left: 30px;
+}
+
+@media (max-width: 1350px) {
+
+    .secDiv {
+        margin-left: 300px;
+    }
+}
+
+@media (max-width: 1250px) {
+
+    .secDiv {
+        margin-left: 250px;
+    }
+}
+
+@media (max-width: 1050px) {
+
+    .secDiv{
+        margin-left: 130px;
+    }
+}
+
+@media (max-width: 950px) {
+
+    .secDiv {
+        margin-left: 80px;
+        width: 600px;
+    }
+
+    .adMail, .adPswd {
+        padding: 15px 20px 15px;
+    }
+
+}
+
+@media (max-width: 850px) {
+
+    .secDiv {
+        width: 500px;
+
+    }
+
+    .adMail, .adPswd {
+        padding: 15px 15px 15px;
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    .noImg{
+        width: 50px;
+    }
+
+
+    .secDiv {
+        width: 400px;
+
+    }
+
+    .deleteAcc{
+        width: 200px;
+    }
+
+
+}
+
+@media (max-width: 650px) {
+
+    .pageHdng{
+        font-size: 22px;
+    }
+
+    .secDiv {
+        margin-left: 40px;
+        font-size: 14px;
+        width: 300px;
+        height: 45vh;
+    }
+
+    .deleteAcc {
+        margin-left: 40px;
+    }
+}
