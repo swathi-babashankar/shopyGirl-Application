@@ -11,7 +11,7 @@ const multer = require("multer")
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cors({ origin: ["https://shopyguysapplicationfrontend.vercel.app"],
+app.use(cors({
               methods: ["get", "post", "put", "delete" ],
               origin: true,
   credentials: true}));
