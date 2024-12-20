@@ -15,6 +15,7 @@ app.use(cors({ origin: ["https://shopyguysapplicationfrontend.vercel.app"],
               methods: ["get", "post", "put", "delete" ],
   credentials: true}));
 app.use(cookieParser());
+app.get("/", "hello");
 
 const cartRoutes = require("./routes/cartRoutes");
 const couponRoutes = require("./routes/couponRoutes");
