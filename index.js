@@ -12,9 +12,11 @@ const multer = require("multer")
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
-              origin: "https://shopyguysapplications.vercel.app",
-              methods: ["get", "post", "put", "delete" ],
+              'origin': "https://shopyguysapplicationfrontend.vercel.app",
+              'methods': "GET, POST, PUT, DELETE",
+               'preflightContinue': false,
   credentials: true}));
+
 app.use(cookieParser());
 app.get("/", (req, res) =>{ res.json({message: "Welcome to my page"})});
 
