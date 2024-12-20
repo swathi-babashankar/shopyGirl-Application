@@ -12,7 +12,7 @@ const multer = require("multer")
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
-              origin: "https://shopyguysapplicationfrontend.vercel.app",
+              origin: "https://shopyguysapplications.vercel.app",
               methods: ["get", "post", "put", "delete" ],
   credentials: true}));
 app.use(cookieParser());
