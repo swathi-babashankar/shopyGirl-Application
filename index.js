@@ -19,9 +19,13 @@ app.use(cors({
                 'exposedHeaders': ['Content-Range','X-Content-Range'],
   credentials: true}));
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+})
+
 app.use(cookieParser());
 app.get("/", (req, res) =>{
-  res.header("Access-Control-Allow-Origin", "https://shopyguysapplicationfrontend.vercel.app")
   res.json({message: "Welcome to my page"})});
 
 const cartRoutes = require("./routes/cartRoutes");
