@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
               methods: ["get", "post", "put", "delete" ],
-              origin: true,
+              origin: "*",
   credentials: true}));
 app.use(cookieParser());
 app.get("/", (req, res) =>{ res.json({message: "Welcome to my page"})});
