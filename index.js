@@ -11,22 +11,15 @@ const multer = require("multer")
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// app.use(cors({
-//               'origin': 'https://shopyguysapplicationfrontend.vercel.app',
-//   'methods': ['GET,PUT,POST,DELETE'],
-//   credentials: true}));
-
-const options = {
+app.use(cors({
               'origin': 'https://shopyguysapplicationfrontend.vercel.app',
   'methods': ['GET,PUT,POST,DELETE'],
-  credentials: true
-};
+  'credentials': true}));
 
-app.use( cors(options),(req, res) =>{
+app.use( cors((req, res) =>{
   res.header("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", true);
-  
-})
+}))
 
 app.use(cookieParser());
 app.get("/", (req, res) =>{
