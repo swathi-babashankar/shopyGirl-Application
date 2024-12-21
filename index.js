@@ -16,7 +16,7 @@ app.use(cors({
   'credentials': true}));
 
 app.use( cors((req, res) =>{
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeaders("Access-Control-Allow-Origin", "*");
   
 }))
 
