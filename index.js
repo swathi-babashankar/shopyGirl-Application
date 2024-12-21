@@ -11,9 +11,9 @@ const multer = require("multer")
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// app.use(cors({
-//               'origin': true,
-//   'credentials': true}));
+app.use(cors({
+              'origin': true,
+  'credentials': true}));
 
 app.use(cors( function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
