@@ -15,10 +15,10 @@ app.use(cors({
               'origin': true,
   'credentials': true}));
 
-app.use(function (req, res, next) {
+app.use(cors( (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   next();
-})
+}))
 
 app.use(cookieParser());
 app.get("/", (req, res) =>{
