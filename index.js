@@ -14,10 +14,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors({
               'origin': 'https://shopyguysapplicationfrontend.vercel.app',
   'methods': ['GET,PUT,POST,DELETE'],
-  'Credentials': true}));
+  credentials: true}));
 
 app.use( cors((req, res) =>{
-  res.setHeaders("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", true);
   
 }))
 
