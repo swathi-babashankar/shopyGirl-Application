@@ -12,13 +12,13 @@ const multer = require("multer")
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
-              'origin': true,
+              'origin': '*',
   'credentials': true}));
 
-app.use( (req, res, next) =>{
+app.use( cors((req, res) =>{
   res.setHeader("Access-Control-Allow-Origin", "*");
-  next();
-})
+  
+}))
 
 app.use(cookieParser());
 app.get("/", (req, res) =>{
