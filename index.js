@@ -16,11 +16,11 @@ app.use(cors({
   'methods': ['GET,PUT,POST,DELETE'],
   credentials: true}));
 
-app.use( cors((req, res) =>{
+app.use( cors(), (req, res) =>{
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", true);
   
-}))
+})
 
 app.use(cookieParser());
 app.get("/", (req, res) =>{
