@@ -16,7 +16,7 @@ app.use(cors({
   'methods': ['GET,PUT,POST,DELETE'],
   'credentials': true}));
 
-app.use(function (req, res, next){
+app.use(cors(),function(req, res, next){
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
