@@ -8,6 +8,11 @@ const connectToDatabase = require("./config/database");
 const multer = require("multer")
 // const bodyParser = require("body-parser")
 
+app.use(function(req, res){
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+})
+
 app.use(cors({
   'origin': 'https://shopyguysapplicationfrontend.vercel.app',
   'methods': ['GET,PUT,POST,DELETE'],
@@ -16,10 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-app.use(function(req, res){
-  req.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-})
+
 
 app.use(cookieParser());
 app.get("/", (req, res) =>{
