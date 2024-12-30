@@ -9,7 +9,7 @@ const multer = require("multer")
 // const bodyParser = require("body-parser")
 
 app.use(function(req, res){
-  res.writeHead(200, {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app'})
+  res.writeHead(200, {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true})
   // res.setHeader("Access-Control-Allow-Credentials", true);
 })
 
