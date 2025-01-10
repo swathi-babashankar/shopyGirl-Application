@@ -1,5 +1,5 @@
 require("dotenv").config();
-const app = require("./index.js");
+const app = require("./api/index.js");
 const PORT = process.env.PORT|| 4000;
 
 app.listen(PORT, ()=>{
