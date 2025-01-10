@@ -4,7 +4,7 @@ const app = express()
 const cookieParser = require("cookie-parser");
 // const {json , urlencoded} = require("express");
 const cors = require("cors");
-const connectToDatabase = require("./config/database");
+const connectToDatabase = require("../config/database");
 
 const multer = require("multer")
 // const bodyParser = require("body-parser")
