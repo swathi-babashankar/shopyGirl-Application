@@ -9,8 +9,6 @@ const connectToDatabase = require("../config/database");
 const multer = require("multer")
 // const bodyParser = require("body-parser")
 
-
-
 app.use(cors({
   'origin': 'https://shopyguysapplicationfrontend.vercel.app',
   'methods': ['GET,PUT,POST,DELETE'],
@@ -23,9 +21,6 @@ app.use(function(req, res){
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-
-
-
 app.use(cookieParser());
 app.get("/", (req, res) =>{
   res.json({message: "Welcome to my page"})});
@@ -36,15 +31,6 @@ const orderRoutes = require("../routes/orderRoutes");
 const productRoutes = require("../routes/productRoutes");
 const userRoutes = require("../routes/userRoutes");
 const adminRoues = require("../routes/adminRoutes");
-// const multer = require("multer");
-
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({
-//     extended: true
-// }))
-// app.use(fileUpload({
-//     useTempFiles: true
-// }))
 
 connectToDatabase();
 
