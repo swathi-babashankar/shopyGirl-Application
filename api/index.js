@@ -44,5 +44,16 @@ app.use("/", userRoutes);
 app.use("/", adminRoues);
 app.use("/", couponRoutes)
 
-module.exports = app;
+// module.exports = app;
+module.exports.handler = async (event, context) => {
+  try {
+    return await serverless(app)(event, context);
+  } catch (err) {
+    console.error('Serverless error:', err);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Internal Server Error (serverless)' })
+    };
+  }
+};
 // module.exports = serverless(app);
