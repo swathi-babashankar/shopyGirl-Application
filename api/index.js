@@ -24,7 +24,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
 app.get("/api", (req, res) =>{
-  
+  console.log("working");
   res.send("helllo from back");
 });
 // app.use('/api', router);
