@@ -23,9 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
-router.get("/", (req, res) =>{
+app.get("/", (req, res) =>{
   res.json({message: "Welcome to my page"})});
-app.use('/api', router);
+// app.use('/api', router);
 
 const cartRoutes = require("../routes/cartRoutes");
 const couponRoutes = require("../routes/couponRoutes");
