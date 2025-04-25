@@ -25,7 +25,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.get("/", (req, res) =>{
   
-  res.json({message: "Welcome to my page"})});
+  res.json({message: "Welcome to my page"})
+};
 // app.use('/api', router);
 
 const cartRoutes = require("../routes/cartRoutes");
@@ -52,8 +53,8 @@ app.use("/", userRoutes);
 app.use("/", adminRoutes);
 app.use("/", couponRoutes)
 
-// module.exports = app;
-export default serverless(app);
+module.exports = app;
+// export default serverless(app);
 // module.exports.handler = async (event, context) => {
 //   try {
 //     return await serverless(app)(event, context);
