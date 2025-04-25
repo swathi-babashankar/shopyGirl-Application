@@ -42,7 +42,7 @@ app.use("/", cartRoutes);
 app.use("/", orderRoutes)
 app.use("/", productRoutes);
 app.use("/", userRoutes);
-app.use("/", adminRoues);
+app.use("/", adminRoutes);
 app.use("/", couponRoutes)
 
 // module.exports = app;
