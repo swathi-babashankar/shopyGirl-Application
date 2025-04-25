@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.get("/", (req, res) =>{
   
   res.json({message: "Welcome to my page"})
-};
+});
 // app.use('/api', router);
 
 const cartRoutes = require("../routes/cartRoutes");
