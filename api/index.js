@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.get("/", (req, res) =>{
   console.log("workinggg back");
   res.json({message: "Welcome to my page"})});
-app.use('/api', router);
+// app.use('/api', router);
 
 const cartRoutes = require("../routes/cartRoutes");
 const couponRoutes = require("../routes/couponRoutes");
