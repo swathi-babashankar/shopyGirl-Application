@@ -36,7 +36,14 @@ const userRoutes = require("../routes/userRoutes");
 const adminRoues = require("../routes/adminRoutes");
 
 
-connectToDatabase();
+(async () => {
+  try {
+    await connectToDatabase();
+    console.log("Connected to database");
+  } catch (err) {
+    console.error("DB connection error:", err);
+  }
+})();
 
 app.use("/", cartRoutes);
 app.use("/", orderRoutes)
