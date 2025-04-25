@@ -33,7 +33,7 @@ const couponRoutes = require("../routes/couponRoutes");
 const orderRoutes = require("../routes/orderRoutes");
 const productRoutes = require("../routes/productRoutes");
 const userRoutes = require("../routes/userRoutes");
-const adminRoues = require("../routes/adminRoutes");
+const adminRoutes = require("../routes/adminRoutes");
 
 
 (async () => {
