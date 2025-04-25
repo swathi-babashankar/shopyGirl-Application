@@ -44,5 +44,5 @@ app.use("/", userRoutes);
 app.use("/", adminRoues);
 app.use("/", couponRoutes)
 
-// module.exports = app;
-module.exports = serverless(app);
+module.exports = app;
+// module.exports = serverless(app);
