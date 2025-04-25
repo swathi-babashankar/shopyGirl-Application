@@ -23,9 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
-app.get("/", (req, res) =>{
+app.get("/api", (req, res) =>{
   
-  res.json({message: "Welcome to my page"})
+  res.send("helllo from back");
 });
 // app.use('/api', router);
 
