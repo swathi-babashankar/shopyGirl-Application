@@ -15,7 +15,7 @@ app.use(cors({
   'credentials': true}));
 
 app.use(function(req, res){
-  res.writeHead( {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true})
+  res.writeHead(200, {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true})
   // res.setHeader("Access-Control-Allow-Credentials", true);200
 })
 app.use(express.json());
