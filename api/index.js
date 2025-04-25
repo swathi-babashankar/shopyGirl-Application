@@ -24,6 +24,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
 app.get("/", (req, res) =>{
+  console.log("workinggg back");
   res.json({message: "Welcome to my page"})});
 // app.use('/api', router);
 
@@ -33,7 +34,7 @@ const orderRoutes = require("../routes/orderRoutes");
 const productRoutes = require("../routes/productRoutes");
 const userRoutes = require("../routes/userRoutes");
 const adminRoues = require("../routes/adminRoutes");
-const ServerlessHttp = require("serverless-http");
+
 
 connectToDatabase();
 
