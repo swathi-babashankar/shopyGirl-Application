@@ -45,4 +45,4 @@ app.use("/", adminRoues);
 app.use("/", couponRoutes)
 
 // module.exports = app;
-module.exports.handler = serverless(app);
+module.exports = serverless(app);
