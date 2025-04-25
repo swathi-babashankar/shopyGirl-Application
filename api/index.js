@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const connectToDatabase = require("../config/database");
 const serverless = require("serverless-http");
-
+const router = express.Router();
 const multer = require("multer")
 // const bodyParser = require("body-parser")
 
@@ -25,6 +25,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.get("/", (req, res) =>{
   res.json({message: "Welcome to my page"})});
+app.use('/api', router);
 
 const cartRoutes = require("../routes/cartRoutes");
 const couponRoutes = require("../routes/couponRoutes");
@@ -43,5 +44,5 @@ app.use("/", userRoutes);
 app.use("/", adminRoues);
 app.use("/", couponRoutes)
 
-module.exports = app;
+// module.exports = app;
 module.exports.handler = serverless(app);
