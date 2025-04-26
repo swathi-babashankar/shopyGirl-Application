@@ -24,10 +24,12 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
 app.get("/api", (req, res) =>{
-  console.log("working");try{
+  try{
+    console.log("working");
   res.status(200).json({success:true, message: "working"});
   }
   catch(err){
+    console.log("working");
     res.status(400).json({message: err.message});
   }
 });
