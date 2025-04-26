@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
-app.get("/api", (req, res) =>{
+app.router.get("/api", (req, res) =>{
   console.log("working");
   res.send("helllo from back");
 });
