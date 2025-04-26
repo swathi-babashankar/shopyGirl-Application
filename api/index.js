@@ -59,7 +59,7 @@ app.use("/", userRoutes);
 app.use("/", adminRoutes);
 app.use("/", couponRoutes)
 
-module.exports =serverless( app);
+module.exports.handler =serverless( app);
 // export default serverless(app);
 // module.exports.handler = async (event, context) => {
 //   try {
