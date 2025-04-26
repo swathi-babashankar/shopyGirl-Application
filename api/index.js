@@ -25,10 +25,10 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.get("/api", (req, res) =>{
   console.log("working");try{
-  res.send("helllo from back");
+  res.status(200).json({success:true, message: "working"});
   }
   catch(err){
-    res.send("errr");
+    res.status(400).json({message: err.message});
   }
 });
 // app.use('/api', router);
