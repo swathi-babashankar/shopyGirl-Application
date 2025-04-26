@@ -7,4 +7,4 @@ const PORT = process.env.PORT|| 4000;
 //     console.log(`App is running at http://localhost:${PORT}`);
 // })
 // ;
-module.exports = serverless(app);
+module.exports = app;
