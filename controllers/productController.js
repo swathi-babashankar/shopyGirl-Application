@@ -92,7 +92,7 @@ exports.getProducts = async(req, res) => {
 
     try{
 
-        const getAllprods = await product.find({}).toArray();
+        const getAllprods = await product.find({});
 console.log(getAllprods);
         res.status(202).json({
             success: true,
