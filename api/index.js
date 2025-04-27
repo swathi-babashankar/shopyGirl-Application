@@ -15,8 +15,19 @@ app.use(cors())
 //   'methods': ['GET,PUT,POST,DELETE'],
 //   'credentials': true}));
 
-app.use(function(req, res){
+app.use(function(req, res, next){
   // res.writeHead(200, {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true})
+  
+  // Handle preflight (OPTIONS) requests explicitly
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.status(200).end();  // Send a 200 response for OPTIONS request
+    return;
+  }
+  next();
+
   res.set({'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods':'GET, PUT,POST,DELETE',
        'Access-Control-Allow-Headers': 'Content-Type, Authorization'})
     // res.setHeader('Access-Control-Allow-Credentials', true);
