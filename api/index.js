@@ -19,6 +19,9 @@ app.use(function(req, res, next){
   // res.writeHead(200, {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true})
   
   // Handle preflight (OPTIONS) requests explicitly
+  res.set({'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods':'GET, PUT,POST,DELETE',
+       'Access-Control-Allow-Headers': 'Content-Type, Authorization'})
+  next();
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', 'https://shopyguysapplicationfrontend.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'GET,PUT, POST,DELETE, OPTIONS');
@@ -26,10 +29,9 @@ app.use(function(req, res, next){
     res.status(200).end();  // Send a 200 response for OPTIONS request
     return;
   }
-  next();
+  
 
-  res.set({'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods':'GET, PUT,POST,DELETE',
-       'Access-Control-Allow-Headers': 'Content-Type, Authorization'})
+  
     // res.setHeader('Access-Control-Allow-Credentials', true);
 })
 app.use(express.json());
