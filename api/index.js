@@ -16,8 +16,8 @@ app.use(cors({
   'credentials': true}));
 
 app.use(function(req, res){
-  res.writeHead(200, {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true})
-  // res.setHeader("Access-Control-Allow-Credentials", true);200 https://shopyguysapplicationfrontend.vercel.app
+  // res.writeHead(200, {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true})
+  res.setHeader({'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true});
 })
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
