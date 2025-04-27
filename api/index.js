@@ -20,7 +20,7 @@ app.use(function(req, res, next){
   
   // Handle preflight (OPTIONS) requests explicitly
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shopyguysapplicationfrontend.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.status(200).end();  // Send a 200 response for OPTIONS request
@@ -67,7 +67,7 @@ const adminRoutes = require("../routes/adminRoutes");
 
 app.use("/", cartRoutes);
 app.use("/", orderRoutes)
-app.use("/", productRoutes);
+app.use("/api", productRoutes);
 app.use("/", userRoutes);
 app.use("/", adminRoutes);
 app.use("/", couponRoutes)
