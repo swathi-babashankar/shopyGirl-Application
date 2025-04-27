@@ -67,12 +67,12 @@ const adminRoutes = require("../routes/adminRoutes");
   }
 })();
 
-app.use("/", cartRoutes);
-app.use("/", orderRoutes)
+app.use("/api", cartRoutes);
+app.use("/api", orderRoutes)
 app.use("/api", productRoutes);
-app.use("/", userRoutes);
-app.use("/", adminRoutes);
-app.use("/", couponRoutes)
+app.use("/api", userRoutes);
+app.use("/api", adminRoutes);
+app.use("/api", couponRoutes)
 
 module.exports = app;
 // export default serverless(app);
