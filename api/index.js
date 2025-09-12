@@ -19,7 +19,7 @@ app.use(function(req, res, next){
   // res.writeHead(200, {'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true})
   
   // Handle preflight (OPTIONS) requests explicitly
-  res.set({'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods':'GET, PUT,POST,DELETE',
+  res.set({'Access-Control-Allow-Origin': 'https://shopyguysapplicationfrontend.vercel.app', 'Access-Control-Allow-Credentials': 'true', 'Access-Control-Allow-Methods':'GET, PUT,POST,DELETE',
        'Access-Control-Allow-Headers': 'Content-Type, Authorization'})
   
   if (req.method === 'OPTIONS') {
