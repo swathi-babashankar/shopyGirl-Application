@@ -299,7 +299,7 @@ try {
         new: true
     })
     
-    res.clearCookie("token", {httpOnly: true});
+    res.clearCookie("token", {httpOnly: true, secure: true, sameSite:'none'});
 
     res.status(202).json({
         success: true,
@@ -359,6 +359,7 @@ exports.deleteUser = async (req, res) => {
 }
 
 // To make routes protected
+
 
 
 
