@@ -6,11 +6,16 @@ exports.loginAuth = async (req, res, next) => {
 
     let token;
 
-    if(!req.cookies.token || (!req.headers.authorization && req.headers.authorization.startsWith("Bearer")) ){
-        console.log(req.headers.authorization);
+    // if(!req.cookies.token || (!req.headers.authorization && req.headers.authorization.startsWith("Bearer")) ){
+    //     console.log(req.headers.authorization);
 
-        token = req.cookies.token || req.headers.authorization.split(" ")[1]
+    //     token = req.cookies.token || req.headers.authorization.split(" ")[1]
         
+    // }
+     if (req.cookies && req.cookies.token) {
+        token = req.cookies.token;
+    } else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer ")) {
+        token = req.headers.authorization.split(" ")[1];
     }
 
     if(!token){
@@ -39,3 +44,4 @@ exports.loginAuth = async (req, res, next) => {
     }
 }
 // completed
+
