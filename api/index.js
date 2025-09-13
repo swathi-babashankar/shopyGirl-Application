@@ -12,7 +12,7 @@ const multer = require("multer")
 
 app.use(cors({
   'origin': 'https://shopyguysapplicationfrontend.vercel.app',
-  'methods': ['GET,PUT,POST,DELETE'],
+  'methods': ['GET','PUT','POST','DELETE'],
   'credentials': true}));
 
 app.use(function(req, res, next){
