@@ -8,7 +8,7 @@ const { ObjectId } = require("mongodb");
 const cookieProp = {
     expires: new Date(Date.now() + 10800000),
     // 180,000expires: (60*60),
-    httpOnly: false,
+    // httpOnly: false,
     sameSite: 'none',
     secure: true,
     path: '/',
@@ -360,6 +360,7 @@ exports.deleteUser = async (req, res) => {
 }
 
 // To make routes protected
+
 
 
 
