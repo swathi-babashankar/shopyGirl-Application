@@ -10,7 +10,8 @@ const cookieProp = {
     // 180,000expires: (60*60),
     httpOnly: true,
     sameSite: 'none',
-    secure: true
+    secure: true,
+    path: '/',
 }
 
 
@@ -359,6 +360,7 @@ exports.deleteUser = async (req, res) => {
 }
 
 // To make routes protected
+
 
 
 
