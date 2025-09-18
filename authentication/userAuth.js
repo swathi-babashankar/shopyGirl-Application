@@ -19,7 +19,8 @@ exports.loginAuth = async (req, res, next) => {
     }
 
     if(!token){
-        throw new Error("Not authorised to access this route", 401)
+        // throw new Error("Not authorised to access this route", 401)
+        res.status(401).json("Not authorised");
     }
 
     try{
@@ -44,5 +45,6 @@ exports.loginAuth = async (req, res, next) => {
     }
 }
 // completed
+
 
 
