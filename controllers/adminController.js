@@ -8,7 +8,7 @@ const  jwt = require("jsonwebtoken");
 
  const setCookieOption = {
     expires: new Date(Date.now(2*24*60*60*1000)),
-    httpOnly: true,
+    // httpOnly: true,
     secure: true,
     path: "/",
     sameSite: 'none'
@@ -301,4 +301,5 @@ exports.deleteAccount = async (req, res) => {
     }
 
 }
+
 
