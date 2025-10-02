@@ -6,10 +6,15 @@ exports.adminAuth = async(req, res) => {
 
     let adminToken;
 
-    if(!req.cookies.adminToken || (!req.headers.authorization && req.headers.authorization.startsWith("Bearer")) ){
+    // if(!req.cookies.adminToken || (!req.headers.authorization && req.headers.authorization.startsWith("Bearer")) ){
 
-        adminToken = req.cookies.adminToken || req.headers.authorization.split(" ")[1]
+    //     adminToken = req.cookies.adminToken || req.headers.authorization.split(" ")[1]
 
+    // }
+    if (req.cookies && req.cookies.adminToken) {
+        adminToken = req.cookies.adminToken;
+    } else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+        adminToken = req.headers.authorization.split(" ")[1];
     }
 
     if(!adminToken){
@@ -30,4 +35,5 @@ exports.adminAuth = async(req, res) => {
         res.status(404).send(err.message);
 
     }
+
 }
