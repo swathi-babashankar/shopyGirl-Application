@@ -6,6 +6,7 @@ const Admin = require("../model/adminSchema")
 exports.createProduct = async (req, res) => {
 
    try {
+      console.log("try eorking createp");
 
     const {name, brand, category, description, price, discount} = req.body;
     const {sizeAndStock} = req.body;
@@ -352,4 +353,5 @@ exports.searchProduct = async (req, res) => {
         })
     }
 }
+
 
