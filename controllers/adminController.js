@@ -10,7 +10,7 @@ const  jwt = require("jsonwebtoken");
     expires: new Date(Date.now(2*24*60*60*1000)),
     // httpOnly: true,
     sameSite: 'none',
-    secure: true,
+    // secure: true,
     path: "/",
     
 };
@@ -223,7 +223,7 @@ exports.adminLogin = async (req, res) => {
             adminToken = adminLoggedIn.adminToken;
             adminLoggedIn.password = undefined;
 
-            res.cookie("adminToken", adminToken,  ... setCookieOption);
+            res.cookie("adminToken", adminToken,  {... setCookieOption});
             // res.setHeader("authorization", adminToken)
 
             res.status(202).json({
@@ -302,6 +302,7 @@ exports.deleteAccount = async (req, res) => {
     }
 
 }
+
 
 
 
