@@ -11,7 +11,7 @@ const  jwt = require("jsonwebtoken");
     // httpOnly: true,
     sameSite: 'none',
     secure: true,
-    path: "/",
+    path: '/',
     
 };
 
@@ -302,6 +302,7 @@ exports.deleteAccount = async (req, res) => {
     }
 
 }
+
 
 
 
