@@ -4,6 +4,7 @@ const Admin = require("../model/adminSchema")
 
 
 exports.createProduct = async (req, res) => {
+   console.log("try eorking createp");
 
    try {
       console.log("try eorking createp");
@@ -353,5 +354,6 @@ exports.searchProduct = async (req, res) => {
         })
     }
 }
+
 
 
