@@ -13,6 +13,7 @@ exports.adminAuth = async(req, res) => {
     // }
     if (req.cookies && req.cookies.adminToken) {
         adminToken = req.cookies.adminToken;
+        console.log(adminToken)
     } else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
         adminToken = req.headers.authorization.split(" ")[1];
     }
@@ -37,3 +38,4 @@ exports.adminAuth = async(req, res) => {
     }
 
 }
+
