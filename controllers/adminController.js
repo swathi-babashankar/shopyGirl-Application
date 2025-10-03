@@ -72,7 +72,7 @@ exports.createAdmin = async (req, res) =>{
         adminToken = createAdmin.adminToken;
         createAdmin.password = undefined;
 
-        res.cookie("adminToken", adminToken, ... setCookieOption)
+        res.cookie("adminToken", adminToken, {... setCookieOption})
         res.setHeader("authorization", adminToken)
 
         res.status(202).json({
@@ -223,7 +223,7 @@ exports.adminLogin = async (req, res) => {
             adminToken = adminLoggedIn.adminToken;
             adminLoggedIn.password = undefined;
 
-            res.cookie("adminToken", adminToken,  {setCookieOption});
+            res.cookie("adminToken", adminToken,  {... setCookieOption});
             // res.setHeader("authorization", adminToken)
 
             res.status(202).json({
@@ -302,6 +302,7 @@ exports.deleteAccount = async (req, res) => {
     }
 
 }
+
 
 
 
