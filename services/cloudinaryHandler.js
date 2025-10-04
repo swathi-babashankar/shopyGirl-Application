@@ -10,7 +10,7 @@ exports.cloudConfig = cloudinary.v2.config({
 })
 
 exports.cloudFileUpload = async (localFilePath, res) => {
-
+console.log("before try");
     try{
 
     if(!localFilePath){
@@ -37,6 +37,7 @@ catch(err){
     // console.log(res.status);
    console.log(err);
 }
+    console.log("before stream");
     streamifier.createReadStream(req.file.buffer).pipe(stream);
 }
 
@@ -102,4 +103,5 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
