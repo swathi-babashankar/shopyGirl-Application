@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/createProduct/:adminId?", 
 adminAuth, upload.single("image")
-    ,  createProduct);
+    ,console.log("r workling"),  createProduct);
 
 router.get("/getProducts", getProducts);
 router.get("/getProductById/:productId?", getProductById);
@@ -21,4 +21,5 @@ router.delete("/deleteProduct/:adminId?/:productId?",adminAuth, deleteProduct);
 router.post("/searchProduct", searchProduct);
 
 module.exports = router;
+
 
