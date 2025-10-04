@@ -7,7 +7,7 @@ require("../controllers/productController");
 const {adminAuth} = require("../authentication/adminAuth");
 const router = express.Router();
 
-router.post("/createProduct/:adminId", 
+router.post("/createProduct/:adminId?", 
 adminAuth,
      (req, res, next) => {
     console.log("Passed multer");
@@ -24,6 +24,7 @@ router.delete("/deleteProduct/:adminId?/:productId?",adminAuth, deleteProduct);
 router.post("/searchProduct", searchProduct);
 
 module.exports = router;
+
 
 
 
