@@ -1,4 +1,5 @@
 const cloudinary = require("cloudinary");
+const streamifier = require("streamifier");
 // const cloudConfig = require("../config/v2config");
 
 exports.cloudConfig = cloudinary.v2.config({
@@ -36,6 +37,7 @@ catch(err){
     // console.log(res.status);
    console.log(err);
 }
+    streamifier.createReadStream(req.file.buffer).pipe(stream);
 }
 
 exports.cloudFileUpdate = async (public_id, res) => {
@@ -100,3 +102,4 @@ export const config = {
     bodyParser: false, 
   },
 }
+
