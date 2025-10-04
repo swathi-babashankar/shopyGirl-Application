@@ -8,10 +8,11 @@ const {adminAuth} = require("../authentication/adminAuth");
 const router = express.Router();
 
 router.post("/createProduct/:adminId?", 
-adminAuth, upload.single("image"),
-            (req, res, next) => {
+adminAuth,
+             (req, res, next) => {
     console.log("Passed multer");
-    next();}, createProduct);
+    next();}, upload.single("image"),
+            createProduct);
 // 
 router.get("/getProducts", getProducts);
 router.get("/getProductById/:productId?", getProductById);
@@ -23,6 +24,7 @@ router.delete("/deleteProduct/:adminId?/:productId?",adminAuth, deleteProduct);
 router.post("/searchProduct", searchProduct);
 
 module.exports = router;
+
 
 
 
