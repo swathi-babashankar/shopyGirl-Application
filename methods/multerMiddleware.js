@@ -14,5 +14,6 @@ const storage = multer.diskStorage({
 exports.upload = multer({
     storage
 
-}, console.log("multer wotking"))
+})
+
 
