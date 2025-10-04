@@ -92,4 +92,11 @@ exports.cloudFileDelete = async (public_id, res) => {
 
 
     }
+
+}
+
+export const config = {
+  api: {
+    bodyParser: false, 
+  },
 }
