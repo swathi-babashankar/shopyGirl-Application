@@ -10,11 +10,12 @@ const storage = multer.memoryStorage()
 //         cb(null, file.originalname)
 //     }
 // })
-
+console.log("working multy")
 exports.upload = multer({
     storage
 
 })
+
 
 
 
