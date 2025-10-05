@@ -9,11 +9,11 @@ const serverless = require("serverless-http");
 const router = express.Router();
 const multer = require("multer")
 // const bodyParser = require("body-parser")
-export const config = {
-  api: {
-    bodyParser: false, 
-  },
-}
+// export const config = {
+//   api: {
+//     bodyParser: false, 
+//   },
+// }
 
 
 app.use(cors({
