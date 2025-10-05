@@ -14,7 +14,7 @@ const  jwt = require("jsonwebtoken");
     path: '/',
     
 };
-console.log("beforesign", ADMIN_JWT_SECRET);
+console.log("beforesign", config.ADMIN_JWT_SECRET);
 
 function generateNewToken(admin){
     return jwt.sign({
@@ -300,6 +300,7 @@ exports.deleteAccount = async (req, res) => {
     }
 
 }
+
 
 
 
