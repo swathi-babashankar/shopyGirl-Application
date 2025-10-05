@@ -17,12 +17,9 @@ const  jwt = require("jsonwebtoken");
 
 function generateNewToken(admin){
     return jwt.sign({
-        id: admin._id
-    },
-        config.ADMIN_JWT_SECRET,
-        {
-            expiresIn: config.ADMIN_JWT_EXPIRY
-        }
+        id: admin._id,
+        expiresIn: config.ADMIN_JWT_EXPIRY
+        },  config.ADMIN_JWT_SECRET
     )
 };
 
@@ -302,6 +299,7 @@ exports.deleteAccount = async (req, res) => {
     }
 
 }
+
 
 
 
