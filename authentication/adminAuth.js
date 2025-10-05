@@ -25,7 +25,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET);
     try{
 
         const decodeJwt = jwt.verify(adminToken, config.ADMIN_JWT_SECRET);
-        
+        console.log(decodeJwt);
 
         req.admin = await admin.findById(decodeJwt._id);
         next();
@@ -39,6 +39,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET);
     }
 
 }
+
 
 
 
