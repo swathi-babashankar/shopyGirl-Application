@@ -9,6 +9,11 @@ const serverless = require("serverless-http");
 const router = express.Router();
 const multer = require("multer")
 // const bodyParser = require("body-parser")
+export const config = {
+  api: {
+    bodyParser: false, 
+  },
+}
 
 
 app.use(cors({
@@ -69,11 +74,7 @@ const adminRoutes = require("../routes/adminRoutes");
   }
 })();
 
-export const config = {
-  api: {
-    bodyParser: false, 
-  },
-}
+
 app.use("/api", cartRoutes);
 app.use("/api", orderRoutes)
 app.use("/api", productRoutes);
