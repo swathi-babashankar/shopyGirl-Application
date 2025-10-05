@@ -8,7 +8,7 @@ const {adminAuth} = require("../authentication/adminAuth");
 const router = express.Router();
 
 router.post("/createProduct/:adminId?", 
-adminAuth,()=>{upload.single("image"); createProduct},  );
+adminAuth,()=>{upload.single("image"); }, createProduct );
 // upload.single("image"),
 router.get("/getProducts", getProducts);
 router.get("/getProductById/:productId?", getProductById);
@@ -20,6 +20,7 @@ router.delete("/deleteProduct/:adminId?/:productId?",adminAuth, deleteProduct);
 router.post("/searchProduct", searchProduct);
 
 module.exports = router;
+
 
 
 
