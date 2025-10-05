@@ -52,11 +52,7 @@ app.get("/api", (req, res) =>{
   }
 });
 // app.use('/api', router);
-export const config = {
-  api: {
-    bodyParser: false, 
-  },
-}
+
 
 const cartRoutes = require("../routes/cartRoutes");
 const couponRoutes = require("../routes/couponRoutes");
