@@ -69,6 +69,11 @@ const adminRoutes = require("../routes/adminRoutes");
   }
 })();
 
+export const config = {
+  api: {
+    bodyParser: false, 
+  },
+}
 app.use("/api", cartRoutes);
 app.use("/api", orderRoutes)
 app.use("/api", productRoutes);
