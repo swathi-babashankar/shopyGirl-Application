@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const admin = require("../model/adminSchema");
+const Admin = require("../model/adminSchema");
 const { config } = require("../config/index");
 
 exports.adminAuth = async(req, res) => {
@@ -27,7 +27,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
         const decodeJwt = jwt.verify(adminToken, config.ADMIN_JWT_SECRET);
         console.log(decodeJwt);
 
-        req.admin = await admin.findById(decodeJwt._id);
+        req.admin = await Admin.findById(decodeJwt._id);
         next();
 
     }
@@ -39,6 +39,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
     }
 
 }
+
 
 
 
