@@ -33,9 +33,10 @@ exports.adminAuth = async(req, res) => {
 
     catch(err){
 
-        res.status(404).send(err.message);
+        res.status(404).send("SECRET NOT FOUND);
 
     }
 
 }
+
 
