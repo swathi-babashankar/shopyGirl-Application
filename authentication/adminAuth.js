@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const admin = require("../model/adminSchema");
-const {config} = require("../config/index");
+const { config } = require("../config/index");
 
 exports.adminAuth = async(req, res) => {
 
@@ -33,11 +33,12 @@ exports.adminAuth = async(req, res) => {
 
     catch(err){
 
-        res.status(404).send("SECRET NOT FOUND");
+        res.status(404).send("Invalid token");
 
     }
 
 }
+
 
 
 
