@@ -5,7 +5,7 @@ const { config } = require("../config/index");
 exports.adminAuth = async(req, res) => {
 
     let adminToken;
-
+console.log("SECRET", config.ADMIN_JWT_SECRET);
     // if(!req.cookies.adminToken || (!req.headers.authorization && req.headers.authorization.startsWith("Bearer")) ){
 
     //     adminToken = req.cookies.adminToken || req.headers.authorization.split(" ")[1]
@@ -25,6 +25,7 @@ exports.adminAuth = async(req, res) => {
     try{
 
         const decodeJwt = jwt.verify(adminToken, config.ADMIN_JWT_SECRET);
+        
 
         req.admin = await admin.findById(decodeJwt._id);
         next();
@@ -38,6 +39,7 @@ exports.adminAuth = async(req, res) => {
     }
 
 }
+
 
 
 
