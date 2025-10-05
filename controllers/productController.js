@@ -35,7 +35,7 @@ exports.createProduct = async (req, res) => {
     }
 
     console.log("req.files is",req.file.path);
-    const imageLocalPath = req.file?.path;
+    const imageLocalPath = req.file?.buffer;
 
     console.log(imageLocalPath)
     
@@ -354,6 +354,7 @@ exports.searchProduct = async (req, res) => {
         })
     }
 }
+
 
 
 
