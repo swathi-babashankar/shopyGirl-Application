@@ -9,36 +9,56 @@ exports.cloudConfig = cloudinary.v2.config({
 
 })
 
-exports.cloudFileUpload = async (localFilePath, res) => {
-console.log("before try");
-    try{
-
-    if(!localFilePath){
-
-        throw new Error("Could not get filePath")
+exports.cloudFileUpload = (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    if (!fileBuffer) {
+      return reject(new Error("No file buffer provided"));
     }
 
-    // JSON.stringify(localFilePath)
-    console.log("localfilepath is", localFilePath)
-    // localFilePath = localFilePath.toString()
+    const stream = cloudinary.uploader.upload_stream(
+      { resource_type: "auto" }, // optional: folder, transformations, etc.
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(result);
+      }
+    );
 
-    // ;
-    const fileUpload = await cloudinary.v2.uploader.upload(
-        localFilePath,
-        // resource_type: "auto"
+    streamifier.createReadStream(fileBuffer).pipe(stream);
+  });
+};
+
+// exports.cloudFileUpload = async (localFilePath, res) => {
+// console.log("before try");
+//     try{
+
+//     if(!localFilePath){
+
+//         throw new Error("Could not get filePath")
+//     }
+
+//     // JSON.stringify(localFilePath)
+//     console.log("localfilepath is", localFilePath)
+//     // localFilePath = localFilePath.toString()
+
+//     // ;
+//     const fileUpload = await cloudinary.v2.uploader.upload(
+//         localFilePath,
+//         // resource_type: "auto"
         
-    )
+//     )
 
-    console.log("file upload url",fileUpload.url);
-    return fileUpload;
-}
+//     console.log("file upload url",fileUpload.url);
+//     return fileUpload;
+// }
 
-catch(err){
-    // console.log(res.status);
-   console.log(err);
-}
-    console.log("before stream");
-    streamifier.createReadStream(req.file.buffer).pipe(stream);
+// catch(err){
+//     // console.log(res.status);
+//    console.log(err);
+// }
+//     console.log("before stream");
+//     streamifier.createReadStream(req.file.buffer).pipe(stream);
 }
 
 exports.cloudFileUpdate = async (public_id, res) => {
@@ -97,6 +117,7 @@ exports.cloudFileDelete = async (public_id, res) => {
     }
 
 }
+
 
 
 
