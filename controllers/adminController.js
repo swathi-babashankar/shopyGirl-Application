@@ -19,8 +19,8 @@ console.log("beforesign", config.ADMIN_JWT_SECRET);
 function generateNewToken(admin){
     return jwt.sign({
          id: admin._id },                // payload
-        'JeerigeYippeeChotuMyPetsAndMe',          // secret
-        { expiresIn: config.ADMIN_JWT_EXPIRY }
+        config.ADMIN_JWT_SECRET,          // secret
+        { expiresIn: config.ADMIN_JWT_EXPIRY||"2h" }
     )
 };
 
@@ -300,6 +300,7 @@ exports.deleteAccount = async (req, res) => {
     }
 
 }
+
 
 
 
