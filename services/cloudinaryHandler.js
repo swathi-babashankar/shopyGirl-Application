@@ -59,7 +59,7 @@ exports.cloudFileUpload = (fileBuffer) => {
 // }
 //     console.log("before stream");
 //     streamifier.createReadStream(req.file.buffer).pipe(stream);
-}
+// }
 
 exports.cloudFileUpdate = async (public_id, res) => {
 
@@ -117,6 +117,7 @@ exports.cloudFileDelete = async (public_id, res) => {
     }
 
 }
+
 
 
 
