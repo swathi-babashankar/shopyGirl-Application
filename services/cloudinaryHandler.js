@@ -10,6 +10,7 @@ exports.cloudConfig = cloudinary.v2.config({
 })
 
 exports.cloudFileUpload = (fileBuffer) => {
+    console.log("cloud fun working");
   return new Promise((resolve, reject) => {
     if (!fileBuffer) {
       return reject(new Error("No file buffer provided"));
@@ -123,6 +124,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
