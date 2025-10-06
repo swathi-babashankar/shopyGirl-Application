@@ -24,7 +24,7 @@ exports.adminAuth = async(req, res) => {
 
     try{
 console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
-        const decodeJwt = jwt.verify(adminToken, config.ADMIN_JWT_SECRET);
+        const decodeJwt = await jwt.verify(adminToken, config.ADMIN_JWT_SECRET);
         console.log(decodeJwt);
 
         req.admin = await Admin.findById(decodeJwt.id);
@@ -39,6 +39,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
     }
 
 }
+
 
 
 
