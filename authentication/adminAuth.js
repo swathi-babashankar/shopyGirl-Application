@@ -5,7 +5,7 @@ const { config } = require("../config/index");
 exports.adminAuth = async(req, res) => {
 
     let adminToken;
-console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
+
     // if(!req.cookies.adminToken || (!req.headers.authorization && req.headers.authorization.startsWith("Bearer")) ){
 
     //     adminToken = req.cookies.adminToken || req.headers.authorization.split(" ")[1]
@@ -23,7 +23,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
     }
 
     try{
-
+console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
         const decodeJwt = jwt.verify(adminToken, config.ADMIN_JWT_SECRET);
         console.log(decodeJwt);
 
@@ -39,6 +39,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
     }
 
 }
+
 
 
 
