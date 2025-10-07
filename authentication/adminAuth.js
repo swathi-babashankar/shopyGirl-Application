@@ -28,6 +28,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
         console.log(decodeJwt);
 
         req.admin = await Admin.findById(decodeJwt.id);
+        console.log("req.admin", req.admin);
         next();
 
     }
@@ -39,6 +40,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
     }
 
 }
+
 
 
 
