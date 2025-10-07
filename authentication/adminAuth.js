@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../model/adminSchema");
 const { config } = require("../config/index");
 
-exports.adminAuth = async(req, res) => {
+exports.adminAuth = async(req, res, next) => {
 
     let adminToken;
 
@@ -40,6 +40,7 @@ console.log("SECRET", config.ADMIN_JWT_SECRET, config.ADMIN_JWT_EXPIRY);
     }
 
 }
+
 
 
 
