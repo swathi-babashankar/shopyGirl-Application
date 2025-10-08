@@ -34,18 +34,15 @@ exports.createProduct = async (req, res) => {
         throw new Error("Admin does not exist")
     }
 
-    console.log("req.files is",req.file.path);
-    const imageLocalPath = req.file?.buffer;
+    const fileBuffer = req.file?.buffer;
 
-    console.log(imageLocalPath)
+    console.log(fileBuffer)
     
-    if(!imageLocalPath){
+    if(!fileBuffer){
         throw new Error("Sorry! We could not get the image path")
     }
 
-    // const localFilePath = JSON.stringify(imageLocalPath)
-    // console.log(localFilePath);
-    const imageUploadResp = await cloudFileUpload(imageLocalPath);
+    const imageUploadResp = await cloudFileUpload(fileBuffer);
 
     console.log("cloud resp");
     console.log("Upload response from cloudinary", imageUploadResp);
@@ -354,6 +351,7 @@ exports.searchProduct = async (req, res) => {
         })
     }
 }
+
 
 
 
