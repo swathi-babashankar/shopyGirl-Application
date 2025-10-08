@@ -36,6 +36,7 @@ exports.cloudFileUpload = async (fileBuffer, req, res) => {
     }
   );
   streamifier.createReadStream(fileBuffer).pipe(stream);
+    return stream;
 }
 
 // exports.cloudFileUpload = async (fileBuffer, req, res) => {
@@ -163,6 +164,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
