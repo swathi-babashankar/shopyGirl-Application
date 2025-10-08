@@ -38,6 +38,7 @@ exports.cloudFileUpload = async (fileBuffer, req, res) => {
     catch(error){
         console.log("cloudinary upload error", error);
     }
+}
 
 // exports.cloudFileUpload = async (localFilePath, res) => {
 // console.log("before try");
@@ -133,6 +134,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
