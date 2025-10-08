@@ -26,6 +26,7 @@ exports.cloudFileUpload = (fileBuffer) => {
     );
 
     streamifier.createReadStream(fileBuffer).pipe(stream);
+      console.log("after stream")
   });
   
 };
@@ -124,6 +125,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
