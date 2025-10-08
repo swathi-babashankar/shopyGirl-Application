@@ -44,6 +44,7 @@ exports.cloudFileUpload = async (fileBuffer, req, res) => {
     catch(err){
         console.log(err);
     }
+}
 
 // exports.cloudFileUpload = async (fileBuffer, req, res) => {
 //     console.log("cloud fun working");
@@ -170,6 +171,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
