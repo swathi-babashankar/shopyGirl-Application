@@ -9,18 +9,18 @@ exports.cloudConfig = cloudinary.v2.config({
 
 })
 
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve(result);
-    });
-  });
-}
+// function runMiddleware(req, res, fn) {
+//   return new Promise((resolve, reject) => {
+//     fn(req, res, (result) => {
+//       if (result instanceof Error) {
+//         return reject(result);
+//       }
+//       return resolve(result);
+//     });
+//   });
+// }
 exports.cloudFileUpload = async (fileBuffer, req, res) => {
-  await runMiddleware(req, res);
+  // await runMiddleware(req, res);
   // console.log(req.file.buffer);
   const stream = await cloudinary.uploader.upload_stream(
     {
@@ -159,6 +159,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
