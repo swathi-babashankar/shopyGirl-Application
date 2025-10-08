@@ -9,13 +9,13 @@ exports.cloudConfig = cloudinary.v2.config({
 
 })
 
-exports.cloudFileUpload = (fileBuffer) => {
+exports.cloudFileUpload = async (fileBuffer) => {
     console.log("cloud fun working");
   return new Promise((resolve, reject) => {
     if (!fileBuffer) {
       return reject(new Error("No file buffer provided"));
     }
-    const stream = cloudinary.uploader.upload_stream(
+    const stream = await cloudinary.uploader.upload_stream(
       { resource_type: "auto" }, // optional: folder, transformations, etc.
       (error, result) => {
         if (error) {
@@ -126,6 +126,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
