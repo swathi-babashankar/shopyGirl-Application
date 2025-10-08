@@ -22,6 +22,10 @@ exports.cloudConfig = cloudinary.v2.config({
 exports.cloudFileUpload = async (fileBuffer, req, res) => {
   // await runMiddleware(req, res);
   // console.log(req.file.buffer);
+     if (!fileBuffer) {
+//       // return reject(new Error("No file buffer provided"));
+       throw new Error("No file buffer provided");
+   }
   const stream = await cloudinary.uploader.upload_stream(
     {
      resource_type: "auto" ,
@@ -159,6 +163,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
