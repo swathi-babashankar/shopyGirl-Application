@@ -9,7 +9,7 @@ exports.cloudConfig = cloudinary.v2.config({
 
 })
 
-function runMiddleware(req, res) {
+function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result) => {
       if (result instanceof Error) {
@@ -159,6 +159,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
