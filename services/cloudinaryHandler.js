@@ -19,56 +19,56 @@ exports.cloudConfig = cloudinary.v2.config({
 //     });
 //   });
 // }
-exports.cloudFileUpload = async (fileBuffer, req, res) => {
-  // await runMiddleware(req, res);
-  // console.log(req.file.buffer);
-     if (!fileBuffer) {
-//       // return reject(new Error("No file buffer provided"));
-       throw new Error("No file buffer provided");
-   }
-  const stream = await cloudinary.uploader.upload_stream(
-    {
-     resource_type: "auto" ,
-    },
-    (error, result) => {
-      if (error) return console.error(error);
-      return result;
-    }
-  );
-  streamifier.createReadStream(fileBuffer).pipe(stream);
-    // return stream;
-}
-
 // exports.cloudFileUpload = async (fileBuffer, req, res) => {
-//     console.log("cloud fun working");
-//   // return new Promise((resolve, reject) => {
-//     if (!fileBuffer) {
-//       // return reject(new Error("No file buffer provided"));
-//         throw new Error("No file buffer provided");
+//   // await runMiddleware(req, res);
+//   // console.log(req.file.buffer);
+//      if (!fileBuffer) {
+// //       // return reject(new Error("No file buffer provided"));
+//        throw new Error("No file buffer provided");
+//    }
+//   const stream = await cloudinary.uploader.upload_stream(
+//     {
+//      resource_type: "auto" ,
+//     },
+//     (error, result) => {
+//       if (error) return console.error(error);
+//       return result;
 //     }
-//     try{
-//       const result = await new Promise((resolve, reject) => {
-//       const stream =  cloudinary.uploader.upload_stream(
-//       { resource_type: "auto" }, // optional: folder, transformations, etc.
-//       // (error, result) => {
-//       //   if (error) {
-//       //     return reject(error);
-//       //       // throw new Error(error);
-//       //   }
-//       //   resolve(result);
-//       //     console.log("result", result)
-//       // }
-//     );
+//   );
+//   streamifier.createReadStream(fileBuffer).pipe(stream);
+//     // return stream;
+// }
 
-//     streamifier.createReadStream(fileBuffer).pipe(stream);
-//       console.log("after stream")
-//   });
-//         return result;
-// }
-//     catch(error){
-//         console.log("cloudinary upload error", error);
-//     }
-// }
+exports.cloudFileUpload = async (fileBuffer, req, res) => {
+    console.log("cloud fun working");
+  // return new Promise((resolve, reject) => {
+    if (!fileBuffer) {
+      // return reject(new Error("No file buffer provided"));
+        throw new Error("No file buffer provided");
+    }
+    try{
+      const result = await new Promise((resolve, reject) => {
+      const stream =  cloudinary.uploader.upload_stream(
+      { resource_type: "auto" }, // optional: folder, transformations, etc.
+      (error, result) => {
+        if (error) {
+          return reject(error);
+            // throw new Error(error);
+        }
+        resolve(result);
+          console.log("result", result)
+      }
+    );
+
+    streamifier.createReadStream(fileBuffer).pipe(stream);
+      console.log("after stream")
+  });
+        return result;
+}
+    catch(error){
+        console.log("cloudinary upload error", error);
+    }
+}
 
 // exports.cloudFileUpload = async (localFilePath, res) => {
 // console.log("before try");
@@ -164,6 +164,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
