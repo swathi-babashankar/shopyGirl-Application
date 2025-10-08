@@ -15,7 +15,6 @@ exports.cloudFileUpload = (fileBuffer) => {
     if (!fileBuffer) {
       return reject(new Error("No file buffer provided"));
     }
-
     const stream = cloudinary.uploader.upload_stream(
       { resource_type: "auto" }, // optional: folder, transformations, etc.
       (error, result) => {
@@ -27,7 +26,7 @@ exports.cloudFileUpload = (fileBuffer) => {
     );
 
     streamifier.createReadStream(fileBuffer).pipe(stream);
-  });
+  
 };
 
 // exports.cloudFileUpload = async (localFilePath, res) => {
@@ -124,6 +123,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
