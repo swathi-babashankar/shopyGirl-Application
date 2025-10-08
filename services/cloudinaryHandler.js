@@ -55,10 +55,8 @@ exports.cloudFileUpload = async (fileBuffer, req, res) => {
           return reject(error);
             // throw new Error(error);
         }
-          else{
+         
         resolve(result);
-          console.log("result", result) }
-          
       }
     );
 
@@ -166,6 +164,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
