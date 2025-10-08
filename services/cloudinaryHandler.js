@@ -20,14 +20,14 @@ exports.cloudFileUpload = async (fileBuffer, req, res) => {
       const result = await new Promise((resolve, reject) => {
       const stream =  cloudinary.uploader.upload_stream(
       { resource_type: "auto" }, // optional: folder, transformations, etc.
-      (error, result) => {
-        if (error) {
-          return reject(error);
-            // throw new Error(error);
-        }
-        resolve(result);
-          console.log("result", result)
-      }
+      // (error, result) => {
+      //   if (error) {
+      //     return reject(error);
+      //       // throw new Error(error);
+      //   }
+      //   resolve(result);
+      //     console.log("result", result)
+      // }
     );
 
     streamifier.createReadStream(fileBuffer).pipe(stream);
@@ -134,6 +134,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
