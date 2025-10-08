@@ -22,6 +22,7 @@ exports.cloudFileUpload = (fileBuffer) => {
           return reject(error);
         }
         resolve(result);
+          console.log("result", result)
       }
     );
 
@@ -125,6 +126,7 @@ export const config = {
     bodyParser: false, 
   },
 }
+
 
 
 
