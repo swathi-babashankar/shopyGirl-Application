@@ -230,7 +230,7 @@ exports.placeOrder = async (req, res) => {
     catch(err){
         res.status(400).json({
             success: false,
-            message: err.message
+            message: err
         })
 
     }
@@ -590,5 +590,6 @@ exports.cancelOrder = async (req, res) => {
 
     }
 }
+
 
 // {$match: [{sizeAndStock: size} ,}
