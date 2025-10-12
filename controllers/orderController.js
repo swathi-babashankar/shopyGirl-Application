@@ -165,7 +165,7 @@ exports.placeOrder = async (req, res) => {
             receipt: `reciept_${new Date().getTime()}`
         }
 
-        const razorpayResponse = await razorpay.orders.create(options);
+        const razorpayResponse = await razorpay.orders.create({...options});
         console.log(options);
 
         console.log("Response from razorpay", razorpayResponse, razorpayResponse.id);
@@ -593,4 +593,5 @@ exports.cancelOrder = async (req, res) => {
 
 
 // {$match: [{sizeAndStock: size} ,}
+
 
