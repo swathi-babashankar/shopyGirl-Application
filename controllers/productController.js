@@ -4,23 +4,18 @@ const Admin = require("../model/adminSchema")
 
 
 exports.createProduct = async (req, res) => {
-   console.log("try eorking createp");
 
    try {
-      console.log("try eorking createp");
-
+      
     const {name, brand, category, description, price, discount} = req.body;
     const {sizeAndStock} = req.body;
     console.log(req.body, name);
     const {adminId} = req.query;
 
-    
    let parsed =  JSON.parse('['+ sizeAndStock + ']')
    console.log("parsed is", parsed);
-//    console.log(parsed);
-
+      
     if(!name || !brand || !category || !price || !sizeAndStock) {
-
         throw new Error("Please fill all the necessary fields")
     }
 
@@ -68,13 +63,11 @@ exports.createProduct = async (req, res) => {
             discount
         })
             
-        
         res.status(202).json({
             success: true,
             message: "Product created successfully",
             productCreated
         })
-        
         }
 
         catch(err){
@@ -82,7 +75,6 @@ exports.createProduct = async (req, res) => {
                 success: false,
                 message: err.message
             })
-
         }
     } 
    
@@ -92,24 +84,19 @@ exports.getProducts = async(req, res) => {
     try{
 
         const getAllprods = await product.find({});
-console.log(getAllprods);
+
         res.status(202).json({
             success: true,
             message: "Products fetched successfully",
             getAllprods
         })
-
     }
 
     catch(err){
-
         res.status(402).json({
             success: false,
             message: err.message
         })
-
-
-
     }
 }
 
@@ -126,12 +113,9 @@ exports.getProductById = async(req, res) => {
                 message: "Products fetched successfully using productID",
                 getProdById
             })
-        // 
-
     }
 
     catch(err){
-
         res.status(402).json({
             success: false,
             message: err.message
@@ -177,8 +161,6 @@ exports.updateProductById = async(req, res) => {
         const public_id = findProduct.publicId;
 
         // Deleting the existing image from cloudinary to update product 
-        
-
         // if(imageLocalPath){
         const deleteExistingImg = await cloudFileDelete(public_id)
         console.log("Existing cloudinary image deleted", deleteExistingImg);
@@ -351,8 +333,3 @@ exports.searchProduct = async (req, res) => {
         })
     }
 }
-
-
-
-
-
