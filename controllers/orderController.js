@@ -15,8 +15,6 @@ exports.placeOrder = async (req, res) => {
         let {address,name , phoneNo, couponCode, quantity  } = req.body;
         
         const { userId } = req.query;
-        // const {productId} = req.param;
-
         console.log( userId);
 
         const allOrders = await Order.find({
@@ -29,9 +27,6 @@ exports.placeOrder = async (req, res) => {
             phoneNo = allOrders[0].phoneNo;
             
         }
-
-        
-
         // But what if there is multiple items for order 
         // 1. May be get all the products in cart using productsInCart = cart.find({})
         // 2. const productIds =  [productsInCart.id]
@@ -41,13 +36,8 @@ exports.placeOrder = async (req, res) => {
         if(!address || !phoneNo || !name){
             throw new Error("Please fill up all the necessary fields")
         }
-
         // Find user Exist
 
-    //  const userID = ObjectId.createFromHexString(userId)
-
-        // userId = new ObjectId(userId)
-        
         const userExist = await User.findById(userId);
         if(!userExist){
             throw new Error("User does not exist")
@@ -57,9 +47,6 @@ exports.placeOrder = async (req, res) => {
         // Find whether this product present in cart doubt-$in if not add this to cart
         // After placing the order remove those items from cart 
     //    Let this be there
-        
-
-        
 
         // Wrap this orderCreate with for loop becoz there might be a chance of having multiple product to order
         // May be now find all the products from cart here => cart.find({}) => this will return [array]
@@ -72,8 +59,6 @@ exports.placeOrder = async (req, res) => {
         for(let i = 0; i<=allCartItems.length-1; i++){
 
         console.log("Zeroth item's price iss", allCartItems[i]?.product[0].price);
-
-        
         console.log("Zeroth item's Id iss", allCartItems[i]?.id);
         console.log("Zeroth item's qty iss", allCartItems[i]?.quantity);
 
@@ -83,15 +68,12 @@ exports.placeOrder = async (req, res) => {
         let prodPrice = allCartItems[i]?.product[0].price;
         let realId = allCartItems[i]?.product[0]._id
 
-        // console.log(prodPrice*qty);
-
         let qty = allCartItems[i]?.quantity
         let grossAmt = prodPrice * qty;
         
         if(couponCode){
 
         const couponExist = await Coupon.find({couponCode})
-        // console.log("coupon exist",couponExist[0].discount);
         if(!couponExist){
             throw new Error("Coupon code is invalid")
         }
@@ -130,8 +112,6 @@ exports.placeOrder = async (req, res) => {
             console.log(orderPlaced);
 
             // If the order is successfull delete the items from the cart
-            
-
             // Decrease the stock of that particular product maybe using aggregation pipeline
 
             let prodId = allCartItems[i].product[0]._id;
@@ -141,7 +121,6 @@ exports.placeOrder = async (req, res) => {
             let sizeandstock = prodFind.sizeAndStock; 
             console.log("size  and stock",sizeandstock);
             // compare the size with sizeAndStock and find the number of stock
-            // 
             // -grab the size of the product and find the stock of that particular size  from product schema
             // -Deduct the no.of quantity ordered from the stock
 
@@ -149,8 +128,6 @@ exports.placeOrder = async (req, res) => {
                 success: true,
                 message: "Your order placed successfully",
                 orderPlaced,
-                
-    
             })  
         }
         }
@@ -164,8 +141,6 @@ exports.placeOrder = async (req, res) => {
             currency: "INR",
             receipt: `reciept_${new Date().getTime()}`
         }
-
-            console.log(options);
         const razorpayResponse = await razorpay.orders.create(options);
 
         console.log("Response from razorpay", razorpayResponse, razorpayResponse.id);
@@ -192,16 +167,12 @@ exports.placeOrder = async (req, res) => {
             // res.write(`Ordered items deleted from cart successfully ${deleteFromCart, JSON.stringify(prodOrdered)}`  );
         }
 
-        
-
         let prodId = allCartItems[i].product[0]._id;
         let size = allCartItems[i].size;
         console.log("size and id",size, prodId);
         console.log("working line 176");
 
         // const prodFind = await Product.updateOne({prodId}, 'sizeAndStock'.size - qty )
-
-        
 
             //  $subtract: [{sizeAndStock: {$in: [Object.values(size)]}}, qty ]} );
     //    updateOne({
@@ -434,8 +405,6 @@ exports.getAllOrders = async (req, res) => {
 
         console.log(userId);
 
-        // userId = ObjectId.createFromHexString(userId) 
-
         const allOrders = await Order.find({
             'userId': {$in: userId} 
         });
@@ -467,8 +436,7 @@ exports.admingetAllOrders = async (req, res) => {
         const allOrders = await Order.find({});
         let prodId ;
         let getProds = [];
-        // console.log("productid of orders",allOrders[0].productId);
-
+        
         for(let i=0; i<=allOrders.length-1; i++) {
 
             prodId = allOrders[i].productId;
@@ -479,10 +447,7 @@ exports.admingetAllOrders = async (req, res) => {
 
             console.log(getProdById);
               getProds.push( getProdById)
-
-
         }
-
 
         res.status(200).json({
             success: true,
@@ -590,10 +555,4 @@ exports.cancelOrder = async (req, res) => {
 
     }
 }
-
-
 // {$match: [{sizeAndStock: size} ,}
-
-
-
-
