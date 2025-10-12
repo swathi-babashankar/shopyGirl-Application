@@ -199,7 +199,7 @@ exports.placeOrder = async (req, res) => {
         console.log("size and id",size, prodId);
         console.log("working line 176");
 
-        const prodFind = await Product.updateOne({prodId}, 'sizeAndStock'.size - qty )
+        // const prodFind = await Product.updateOne({prodId}, 'sizeAndStock'.size - qty )
 
         
 
@@ -217,7 +217,7 @@ exports.placeOrder = async (req, res) => {
         //     }
         // })
 
-        console.log("size  and stock",prodFind);
+        // console.log("size  and stock",prodFind);
         // return orderPlaced
         res.write(`Your order placed  SUCCESSFULLY ${orderPlaced}`)
 
@@ -593,3 +593,4 @@ exports.cancelOrder = async (req, res) => {
 
 
 // {$match: [{sizeAndStock: size} ,}
+
